@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import sql from "mssql";
 import config from "../config/dbConfig.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const CreateUser = async (req, res) => {
   const { name, email, type, password } = req.body;
