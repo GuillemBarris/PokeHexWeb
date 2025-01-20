@@ -1,4 +1,8 @@
-import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { UserService } from '../../services/users.service';
 import { TestBed } from '@angular/core/testing';
 
@@ -21,5 +25,17 @@ describe('DatabaseService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should create a new user', () => {
+    const newUser = {
+      name: 'T',
+      email: '@',
+      type: 'Trainer',
+      password: '123',
+    };
+    service.postUser(newUser).subscribe((response) => {
+      expect(response).toEqual(newUser);
+    });
   });
 });
