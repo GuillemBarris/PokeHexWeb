@@ -147,4 +147,34 @@ describe('SignUpComponent', () => {
     component.password = 'a'.repeat(256);
     expect(component.validatePassword()).toBeFalse();
   });
+
+  it('should se errorMessage when password is invalid', () => {
+    component.password = '';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password cannot be empty');
+
+    component.password = 'short';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password must be at least 8 characters');
+
+    component.password = 'nouppercase123!';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password must contain at least one uppercase letter');
+
+    component.password = 'NOLOWERCASE123!';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password must contain at least one lowercase letter');
+
+    component.password = 'NoSpecialChar123';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password must contain at least one special character');
+
+    component.password = 'NoNumber!';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password must contain at least one number');
+
+    component.password = 'a'.repeat(256);
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Password cannot exceed 255 characters');
+  });
 });
