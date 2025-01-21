@@ -5,4 +5,5 @@
 <input type="email" maxlength="50" name="email">
 <label>Password</label>
 <input type="password" maxlength="255" name="password">
-<button type="submit">Sign-Up</button>
+<button type="submit" (click)="validateName()">Sign-Up</button>
+<div *ngIf="errorMessage" class="error"> {{errorMessage}}</div>
