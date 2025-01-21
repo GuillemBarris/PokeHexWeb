@@ -1,20 +1,63 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/users.service';
+
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
   imports: [FormsModule, CommonModule],
+
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
+ 
 })
 export class SignUpComponent {
+  constructor(private userService: UserService) {}
+
+  user: any[] = [{}];
   name: string = '';
   email: string = '';
   password: string = '';
   errorMessage: string | null = null;
 
+  createUser() {
+    if (
+      !this.validateName() ||
+      !this.validateEmail() ||
+      !this.validatePassword()
+    ) {
+      return;
+    } else if (
+      this.validateName() == false ||
+      this.validateEmail() == false ||
+      this.validatePassword() == false
+    ) {
+      return;
+    } else if (
+      this.validateName() == true &&
+      this.validateEmail() == true &&
+      this.validatePassword() == true
+    ) {
+      this.user.forEach((user) => {
+        const newUser = {
+          name: this.name,
+          email: this.email,
+          type: 'user',
+          password: this.password,
+        };
+        this.userService.postUser(newUser).subscribe(
+          (data) => {
+            console.log('User added:', data);
+          },
+          (error) => {
+            console.error('Error adding user:', error);
+          }
+        );
+      });
+    }
+  }
   validateName(): boolean {
     //Verifica que el nom no estigui buit
     if (!this.name) {
@@ -50,9 +93,10 @@ export class SignUpComponent {
       return false;
     }
 
-    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(trimmedEmail)) 
-      {
-        this.errorMessage = 'Email format is invalid';
+    if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(trimmedEmail)
+    ) {
+      this.errorMessage = 'Email format is invalid';
       return false;
     }
 
@@ -60,36 +104,36 @@ export class SignUpComponent {
   }
 
   validatePassword(): boolean {
-    if(!this.password) {
+    if (!this.password) {
       this.errorMessage = 'Password cannot be empty';
       return false;
     }
-    if(this.password.length < 8) {
+    if (this.password.length < 8) {
       this.errorMessage = 'Password must be at least 8 characters';
       return false;
     }
-    if(this.password.length > 255) {
+    if (this.password.length > 255) {
       this.errorMessage = 'Password cannot exceed 255 characters';
       return false;
     }
-    if(!/[a-z]/.test(this.password)) {
+    if (!/[a-z]/.test(this.password)) {
       this.errorMessage = 'Password must contain at least one lowercase letter';
       return false;
     }
-    if(!/[A-Z]/.test(this.password)) {
+    if (!/[A-Z]/.test(this.password)) {
       this.errorMessage = 'Password must contain at least one uppercase letter';
       return false;
     }
-    if(!/[0-9]/.test(this.password)) {
+    if (!/[0-9]/.test(this.password)) {
       this.errorMessage = 'Password must contain at least one number';
       return false;
     }
-    if(!/[^a-zA-Z0-9]/.test(this.password)) {
-      this.errorMessage = 'Password must contain at least one special character';
+    if (!/[^a-zA-Z0-9]/.test(this.password)) {
+      this.errorMessage =
+        'Password must contain at least one special character';
       return false;
     }
-    
-    return true;
 
+    return true;
   }
 }
