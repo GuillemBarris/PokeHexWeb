@@ -61,24 +61,31 @@ export class SignUpComponent {
 
   validatePassword(): boolean {
     if(!this.password) {
+      this.errorMessage = 'Password cannot be empty';
       return false;
     }
     if(this.password.length < 8) {
+      this.errorMessage = 'Password must be at least 8 characters';
       return false;
     }
     if(this.password.length > 255) {
+      this.errorMessage = 'Password cannot exceed 255 characters';
       return false;
     }
     if(!/[a-z]/.test(this.password)) {
+      this.errorMessage = 'Password must contain at least one lowercase letter';
       return false;
     }
     if(!/[A-Z]/.test(this.password)) {
+      this.errorMessage = 'Password must contain at least one uppercase letter';
       return false;
     }
     if(!/[0-9]/.test(this.password)) {
+      this.errorMessage = 'Password must contain at least one number';
       return false;
     }
     if(!/[^a-zA-Z0-9]/.test(this.password)) {
+      this.errorMessage = 'Password must contain at least one special character';
       return false;
     }
     
