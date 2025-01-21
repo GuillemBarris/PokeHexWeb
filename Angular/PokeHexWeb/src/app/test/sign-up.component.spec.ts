@@ -46,4 +46,19 @@ describe('SignUpComponent', () => {
     component.name = 'A'.repeat(51);
     expect(component.validateName()).toBeFalse();
   });
+
+  it('should set errorMessage when name is invalid', () => {
+    component.name = '';
+    component.validateName();
+    expect(component.errorMessage).toBe('Name cannot be empty');
+
+    component.name = '1234';
+    component.validateName();
+    expect(component.errorMessage).toBe('Name cannot contain only numbers');
+
+    component.name = 'A'.repeat(51);
+    component.validateName();
+    expect(component.errorMessage).toBe('Name cannot exceed 50 characters');
+  });
+
 });
