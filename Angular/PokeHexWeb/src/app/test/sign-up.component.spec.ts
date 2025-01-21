@@ -107,4 +107,18 @@ describe('SignUpComponent', () => {
     component.email = 'a@!gmail.com';
     expect(component.validateEmail()).toBeFalse();
   });
+
+  it('should set errorMessage when email is invalid', () => {
+    component.email = '';
+    component.validateEmail();
+    expect(component.errorMessage).toBe('Email cannot be empty');
+
+    component.email = 'a'.repeat(51);
+    component.validateEmail();
+    expect(component.errorMessage).toBe('Email cannot exceed 50 characters');
+
+    component.email = 'a@!gmail.com';
+    component.validateEmail();
+    expect(component.errorMessage).toBe('Email format is invalid');
+  });
 });
