@@ -177,4 +177,21 @@ describe('SignUpComponent', () => {
     component.validatePassword();
     expect(component.errorMessage).toBe('Password cannot exceed 255 characters');
   });
+
+  it('should call createUser when the button is double-clicked and all fields are valid', () => {
+    spyOn(component, 'createUser');
+
+    component.name = 'Valid Name';
+    component.email = 'valid.email@example.com';
+    component.password = 'ValidPass123!';
+
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('button');
+    const event = new MouseEvent('dblclick');
+    button.dispatchEvent(event);
+
+    expect(component.createUser).toHaveBeenCalled();
+  });
+  
 });
