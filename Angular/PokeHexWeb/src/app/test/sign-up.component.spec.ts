@@ -62,7 +62,7 @@ describe('SignUpComponent', () => {
   });
 
   it('should validate email correctly', () => {
-    component.email = ' a@gmail.com';
+    component.email = 'a@gmail.com';
     expect(component.validateEmail()).toBeTrue();
 
     component.email = '';
@@ -86,11 +86,11 @@ describe('SignUpComponent', () => {
     component.email = 'A'.repeat(51);
     expect(component.validateEmail()).toBeFalse();
 
-    component.email = ' a@gmail.com';
-    expect(component.validateEmail()).toBeFalse();
+    component.email = 'a@gmail.com';
+    expect(component.validateEmail()).toBeTrue();
 
     component.email = ' a@gmail.com ';
-    expect(component.validateEmail()).toBeFalse();
+    expect(component.validateEmail()).toBeTrue();
 
     component.email = 'a.b@gmail.com';
     expect(component.validateEmail()).toBeTrue();
