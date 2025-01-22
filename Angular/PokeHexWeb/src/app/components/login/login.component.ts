@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   email: string = '';
+  password: string = '';
   errorMessage: string | null = null;
 
   validateEmail(): boolean {
@@ -34,4 +35,30 @@ export class LoginComponent {
 
     return true;
   }
+  validatePassword(): boolean {
+    if (!this.password) {
+      return false;
+    }
+    if (this.password.length < 8) {
+      return false;
+    }
+    if (this.password.length > 255) {
+      return false;
+    }
+    if (!/[a-z]/.test(this.password)) {
+      return false;
+    }
+    if (!/[A-Z]/.test(this.password)) {
+      return false;
+    }
+    if (!/[0-9]/.test(this.password)) {
+      return false;
+    }
+    if (!/[^a-zA-Z0-9]/.test(this.password)) {
+      return false;
+    }
+
+    return true;
+  }
+  
 }
