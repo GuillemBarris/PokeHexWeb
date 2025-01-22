@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
-import { HttpClientModule } from '@angular/common/http';
+
 
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, ],
 
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
