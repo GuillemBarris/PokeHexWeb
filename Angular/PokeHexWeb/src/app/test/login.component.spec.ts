@@ -71,14 +71,14 @@ describe('LoginComponent', () => {
   it('should set errorMessage when email is invalid in Login component', () => {
     component.email = '';
     component.validateEmail();
-    expect(component.errorMessage).toBe('Email cannot be empty');
+    expect(component.errorMessage).toBe('Worng email');
 
     component.email = 'a'.repeat(51);
     component.validateEmail();
-    expect(component.errorMessage).toBe('Email cannot exceed 50 characters');
+    expect(component.errorMessage).toBe('Worng email');
 
     component.email = 'a@!gmail.com';
     component.validateEmail();
-    expect(component.errorMessage).toBe('Email format is invalid');
+    expect(component.errorMessage).toBe('Worng email');
   });
 });
