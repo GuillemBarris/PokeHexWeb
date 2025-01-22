@@ -32,3 +32,32 @@ export const CreateUser = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const GetUserByEmail = async (req, res) => {
+  const { email, password } = req.params;
+
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("email", sql.VarChar, email)
+      .query("use PokeHexDatabase SELECT * FROM Users WHERE email = @email");
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const user = result.recordset[0];
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "2s",
+    });
+    return res.status(200).json({ message: "User logged in", token });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
