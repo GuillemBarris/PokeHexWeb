@@ -40,4 +40,18 @@ describe('DatabaseService', () => {
     const req =httpMock.expectOne(`${service['Url']}/createUser/`);
     expect(req.request.method).toBe('POST');
   });
+
+  it('should get a user by email and password', () => {
+    
+    const email = 'guillembarris@gmail.com';
+    const password = 'G5m1i128!';
+
+    service.getUserByEmailAndPassword(email, password).subscribe((response) => {
+      expect(response).toEqual(mockUser);
+    });
+
+    const req = httpMock.expectOne(`${service['Url']}/getUserByEmail/${email}/${password}`);
+    expect(req.request.method).toBe('GET');
+    
+  });
 });
