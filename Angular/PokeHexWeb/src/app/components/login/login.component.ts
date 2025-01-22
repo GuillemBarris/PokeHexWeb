@@ -37,24 +37,32 @@ export class LoginComponent {
   }
   validatePassword(): boolean {
     if (!this.password) {
+      this.errorMessage= 'Worng password';
       return false;
     }
     if (this.password.length < 8) {
+      this.errorMessage= 'Worng password';
+
       return false;
     }
     if (this.password.length > 255) {
+      this.errorMessage= 'Worng password';
       return false;
     }
     if (!/[a-z]/.test(this.password)) {
+      this.errorMessage= 'Worng password';
       return false;
     }
     if (!/[A-Z]/.test(this.password)) {
+      this.errorMessage= 'Worng password';
       return false;
     }
     if (!/[0-9]/.test(this.password)) {
+      this.errorMessage= 'Worng password';
       return false;
     }
     if (!/[^a-zA-Z0-9]/.test(this.password)) {
+      this.errorMessage= 'Worng password';
       return false;
     }
 
