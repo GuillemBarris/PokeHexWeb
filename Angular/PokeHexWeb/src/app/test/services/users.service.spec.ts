@@ -45,9 +45,14 @@ describe('DatabaseService', () => {
     
     const email = 'guillembarris@gmail.com';
     const password = 'G5m1i128!';
+    const User = {
+      name: 'Guillem Barris',
+      email: 'guillembarris@gmail.com',
+      type: 'Trainer',
+    };
 
     service.getUserByEmailAndPassword(email, password).subscribe((response) => {
-      expect(response).toEqual(mockUser);
+      expect(response).toEqual(User);
     });
 
     const req = httpMock.expectOne(`${service['Url']}/getUserByEmail/${email}/${password}`);
