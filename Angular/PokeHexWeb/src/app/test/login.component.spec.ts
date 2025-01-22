@@ -81,4 +81,30 @@ describe('LoginComponent', () => {
     component.validateEmail();
     expect(component.errorMessage).toBe('Worng email');
   });
+
+  it('should validate password correctly in Login component', () => {
+    component.password = 'ValidPass123!';
+    expect(component.validatePassword()).toBeTrue();
+
+    component.password = '';
+    expect(component.validatePassword()).toBeFalse();
+
+    component.password = 'short';
+    expect(component.validatePassword()).toBeFalse();
+
+    component.password = 'nouppercase123!';
+    expect(component.validatePassword()).toBeFalse();
+
+    component.password = 'NOLOWERCASE123!';
+    expect(component.validatePassword()).toBeFalse();
+
+    component.password = 'NoSpecialChar123';
+    expect(component.validatePassword()).toBeFalse();
+
+    component.password = 'NoNumber!';
+    expect(component.validatePassword()).toBeFalse();
+
+    component.password = 'a'.repeat(256);
+    expect(component.validatePassword()).toBeFalse();
+  });
 });
