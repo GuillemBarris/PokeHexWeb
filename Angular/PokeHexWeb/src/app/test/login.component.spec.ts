@@ -107,4 +107,34 @@ describe('LoginComponent', () => {
     component.password = 'a'.repeat(256);
     expect(component.validatePassword()).toBeFalse();
   });
+
+  it('should se errorMessage when password is invalid in Login component', () => {
+    component.password = '';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+
+    component.password = 'short';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+
+    component.password = 'nouppercase123!';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+
+    component.password = 'NOLOWERCASE123!';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+
+    component.password = 'NoSpecialChar123';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+
+    component.password = 'NoNumber!';
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+
+    component.password = 'a'.repeat(256);
+    component.validatePassword();
+    expect(component.errorMessage).toBe('Worng password');
+  });
 });
