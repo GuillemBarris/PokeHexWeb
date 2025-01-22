@@ -21,4 +21,14 @@ export class UserService {
         )
     }
 
+    getUserByEmailAndPassword(email: string, password: string): Observable<any> {
+        return this.http.get<any>(`${this.Url}/getUserByEmail/${email}/${password}`).pipe(
+            catchError((err) => {
+                console.error('Error getting user:', err);
+                return of(null)
+            
+            })
+        )
+    }
+
 }
