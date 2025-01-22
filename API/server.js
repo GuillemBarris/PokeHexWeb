@@ -5,7 +5,7 @@ import UserRoutes from './routes/UserRoutes.js';
 const app = express();
 
 const PORT = 3000;
-const IP = '172.21.46.184';
+const IP = '172.24.59.209';
 
 app.use(cors());
 app.use(express.json());

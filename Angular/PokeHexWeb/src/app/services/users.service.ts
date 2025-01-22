@@ -8,7 +8,7 @@ import { catchError, Observable, of } from "rxjs";
 
 export class UserService {
 
-    private Url = 'http://172.21.46.184:3000/api/v1/users'; 
+    private Url = 'http://172.24.59.209:3000/api/v1/users'; 
 
     constructor(private http: HttpClient) { }
 
