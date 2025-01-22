@@ -20,4 +20,51 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should validate email correctly in Login component', () => {
+    component.email = 'a@gmail.com';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = '';
+    expect(component.validateEmail()).toBeFalse();
+
+    component.email = 'a';
+    expect(component.validateEmail()).toBeFalse();
+
+    component.email = 'a@';
+
+    expect(component.validateEmail()).toBeFalse();
+
+    component.email = 'a@.';
+
+    expect(component.validateEmail()).toBeFalse();
+
+    component.email = 'a@.com';
+
+    expect(component.validateEmail()).toBeFalse();
+
+    component.email = 'A'.repeat(51);
+    expect(component.validateEmail()).toBeFalse();
+
+    component.email = 'a@gmail.com';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = ' a@gmail.com ';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = 'a.b@gmail.com';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = 'a-b@gmail.com';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = 'a@subdomain.gmail.com';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = 'a+b@gmail.com';
+    expect(component.validateEmail()).toBeTrue();
+
+    component.email = 'a@!gmail.com';
+    expect(component.validateEmail()).toBeFalse();
+  });
 });
