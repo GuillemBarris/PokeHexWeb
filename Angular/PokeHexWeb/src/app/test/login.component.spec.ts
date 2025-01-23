@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from '../components/login/login.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -8,9 +10,9 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent]
-    })
-    .compileComponents();
+      imports: [LoginComponent],
+      providers: [provideHttpClientTesting(), provideHttpClient()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -141,16 +143,16 @@ describe('LoginComponent', () => {
   it('should call login when the button is double-clicked and all fields are valid', () => {
     spyOn(component, 'login');
 
+
     component.email = 'valid.email@example.com';
     component.password = 'ValidPass123!';
 
     fixture.detectChanges();
 
     const button = fixture.nativeElement.querySelector('button');
-    const event  = new MouseEvent('dbclick');
+    const event = new MouseEvent('dblclick');
     button.dispatchEvent(event);
 
     expect(component.login).toHaveBeenCalled();
-
   });
 });
