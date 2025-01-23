@@ -56,7 +56,7 @@ export const GetUserByEmail = async (req, res) => {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, {
       expiresIn: "2s",
     });
-    return res.status(200).json({ message: "User logged in", token });
+    return res.status(200).json({ message: "User logged in", token, type: user.type });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
