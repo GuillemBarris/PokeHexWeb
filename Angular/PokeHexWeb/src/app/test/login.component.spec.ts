@@ -158,13 +158,14 @@ describe('LoginComponent', () => {
 
   it('should double click button Sign up go to sign up page', () => {
     spyOn(component, 'goToSignUp');
-
+  
     fixture.detectChanges();
-
-    const button = fixture.nativeElement.querySelector('button');
+  
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    const signUpButton = buttons[1];
     const event = new MouseEvent('dblclick');
-    button.dispatchEvent(event);
-
+    signUpButton.dispatchEvent(event);
+  
     expect(component.goToSignUp).toHaveBeenCalled();
-  })
+  });
 });
