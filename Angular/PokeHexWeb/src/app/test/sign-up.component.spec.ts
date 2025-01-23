@@ -197,4 +197,16 @@ describe('SignUpComponent', () => {
     expect(component.createUser).toHaveBeenCalled();
   });
   
+  it('should double click button Login to login page', () => {
+    spyOn(component, 'goToLogin');
+  
+    fixture.detectChanges();
+  
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    const signUpButton = buttons[1];
+    const event = new MouseEvent('dblclick');
+    signUpButton.dispatchEvent(event);
+  
+    expect(component.goToLogin).toHaveBeenCalled();
+  });
 });
