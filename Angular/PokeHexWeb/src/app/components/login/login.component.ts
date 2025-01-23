@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,26 +21,25 @@ export class LoginComponent {
   login() {
     if (!this.validateEmail() || !this.validatePassword()) {
       return;
-    } else if (
-      this.validateEmail() == false ||
-      this.validatePassword() == false
-    ) {
+    } else if(this.validateEmail() == false || this.validatePassword() == false) {
       return;
-    } else if (
-      this.validateEmail() == true &&
-      this.validatePassword() == true
-    ) {
-      this.errorMessage = 'Login success';
-      this.userService
-        .getUserByEmailAndPassword(this.email, this.password)
-        .subscribe(
-          (data) => {
-            console.log('User added:', data);
-          },
-          (error) => {
-            console.error('Error adding user:', error);
-          }
-        );
+    } else if(this.validateEmail() == true && this.validatePassword() == true) {
+    
+
+    this.userService
+      .getUserByEmailAndPassword(this.email, this.password)
+      .pipe(
+        tap((data) => {
+          console.log('User logged in:', data);
+          this.errorMessage = 'Login success';
+        }),
+        catchError((error) => {
+          console.error('Error during login:', error);
+          this.errorMessage = 'Login failed. Please try again.';
+          return of(null);
+        })
+      )
+      .subscribe();
     }
   }
 

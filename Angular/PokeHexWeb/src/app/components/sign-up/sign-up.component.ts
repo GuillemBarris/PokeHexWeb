@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
+import { catchError, of, tap } from 'rxjs';
 
 
 
@@ -30,32 +31,29 @@ export class SignUpComponent {
       !this.validatePassword()
     ) {
       return;
-    } else if (
-      this.validateName() == false ||
-      this.validateEmail() == false ||
-      this.validatePassword() == false
-    ) {
-      return;
-    } else if (
-      this.validateName() == true &&
-      this.validateEmail() == true &&
-      this.validatePassword() == true
-    ) {
-      this.user.forEach((user) => {
+    } else if(this.validateName() == false || this.validateEmail() == false || this.validatePassword() == false) {
+      return ;
+    } else if(this.validateName() == true && this.validateEmail() == true && this.validatePassword() == true) {
+  
+      this.user.forEach(() => {
         const newUser = {
           name: this.name,
           email: this.email,
           type: 'user',
           password: this.password,
         };
-        this.userService.postUser(newUser).subscribe(
-          (data) => {
-            console.log('User added:', data);
-          },
-          (error) => {
+        this.userService
+          .postUser(newUser)
+          .pipe(
+            tap((data) => {
+              console.log('User added:', data);
+            }),
+            catchError((error) => {
             console.error('Error adding user:', error);
-          }
-        );
+            return of(null); 
+            })
+          )
+        .subscribe();
       });
     }
   }
