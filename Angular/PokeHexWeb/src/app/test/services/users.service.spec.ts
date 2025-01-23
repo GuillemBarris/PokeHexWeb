@@ -12,7 +12,7 @@ describe('DatabaseService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [UserService, provideHttpClientTesting(), provideHttpClient()],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     service = TestBed.inject(UserService);
     httpMock = TestBed.inject(HttpTestingController);
