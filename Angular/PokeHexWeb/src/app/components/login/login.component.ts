@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   login() {
     if (!this.validateEmail() || !this.validatePassword()) {
@@ -41,6 +42,10 @@ export class LoginComponent {
       )
       .subscribe();
     }
+  }
+
+  goToSignUp(){
+    this.router.navigate(['/sign-up']);
   }
 
   validateEmail(): boolean {
