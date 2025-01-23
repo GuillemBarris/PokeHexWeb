@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { catchError, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 
@@ -16,7 +17,7 @@ import { catchError, of, tap } from 'rxjs';
  
 })
 export class SignUpComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   user: any[] = [{}];
   name: string = '';
@@ -57,6 +58,11 @@ export class SignUpComponent {
       });
     }
   }
+  
+  goToLogin(){
+    this.router.navigate(['/login']);
+  }
+
   validateName(): boolean {
     //Verifica que el nom no estigui buit
     if (!this.name) {

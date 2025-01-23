@@ -7,3 +7,4 @@
 <input type="password" maxlength="255" name="password" [(ngModel)]="password">
 <button type="submit" (dblclick)="createUser()">Sign-Up</button>
 <div *ngIf="errorMessage" class="error"> {{errorMessage}}</div>
+<button type="submit" (dblclick)="goToLogin()">Login</button>
