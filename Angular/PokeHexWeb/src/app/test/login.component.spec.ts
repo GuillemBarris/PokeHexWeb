@@ -137,4 +137,20 @@ describe('LoginComponent', () => {
     component.validatePassword();
     expect(component.errorMessage).toBe('Worng password');
   });
+
+  it('should call login when the button is double-clicked and all fields are valid', () => {
+    spyOn(component, 'login');
+
+    component.email = 'valid.email@example.com';
+    component.password = 'ValidPass123!';
+
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('button');
+    const event  = new MouseEvent('dbclick');
+    button.dispatchEvent(event);
+
+    expect(component.login).toHaveBeenCalled();
+
+  });
 });
