@@ -3,10 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from '../components/login/login.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,6 +18,7 @@ describe('LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -168,4 +171,19 @@ describe('LoginComponent', () => {
   
     expect(component.goToSignUp).toHaveBeenCalled();
   });
+
+  it('should navigate to /sign-up when goToSignUp is called', () => {
+    spyOn(router, 'navigate'); 
+  
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    const signUpButton = buttons[1];
+    const event = new MouseEvent('dblclick');
+    signUpButton.dispatchEvent(event);
+  
+    fixture.detectChanges();
+  
+    expect(router.navigate).toHaveBeenCalledWith(['/sign-up']);
+  });
+  
+
 });
