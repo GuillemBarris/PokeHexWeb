@@ -40,7 +40,7 @@ export class SignUpComponent {
         const newUser = {
           name: this.name,
           email: this.email,
-          type: 'user',
+          type: 'trainer',
           password: this.password,
         };
         this.userService
