@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './admin-home.component.css'
 })
 export class AdminHomeComponent {
+
+  constructor(private router: Router) { }
+
+  getToCreatePokemon() {
+    this.router.navigate(['/admin-create-pokemon']);
+  }
 
 }
