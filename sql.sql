@@ -12,3 +12,16 @@ Create Table Users (
 	password Varchar(50) Not Null,
 	Primary key (email)
 );
+
+Create Table Pokemon (
+	name Varchar(15) Not Null,
+	Generation numeric(2) Not Null,
+	category Varchar(25) Not Null,
+	Ps numeric(3) Not Null,
+	Attack numeric(3) Not Null,
+	Defense numeric(3) Not Null,
+	SpAttack numeric(3) Not Null,
+	SpDefense numeric(3) Not Null,
+	Speed numeric(3) Not Null,
+	Primary key (name)
+)
