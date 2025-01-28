@@ -32,7 +32,9 @@ export class LoginComponent {
       .pipe(
         tap((data) => {
           console.log('User logged in:', data);
-          this.errorMessage = 'Login success';
+           if(data.type == 'Admin') {
+            this.router.navigate(['/admin-home']);
+           }
         }),
         catchError((error) => {
           console.error('Error during login:', error);
