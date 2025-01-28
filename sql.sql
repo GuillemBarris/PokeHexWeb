@@ -15,13 +15,13 @@ Create Table Users (
 
 Create Table Pokemon (
 	name Varchar(15) Not Null,
-	Generation numeric(2) Not Null,
+	generation numeric(2) Not Null,
 	category Varchar(25) Not Null,
-	Ps numeric(3) Not Null,
-	Attack numeric(3) Not Null,
-	Defense numeric(3) Not Null,
-	SpAttack numeric(3) Not Null,
-	SpDefense numeric(3) Not Null,
-	Speed numeric(3) Not Null,
+	ps numeric(3) Not Null,
+	attack numeric(3) Not Null,
+	defense numeric(3) Not Null,
+	spAttack numeric(3) Not Null,
+	spDefense numeric(3) Not Null,
+	speed numeric(3) Not Null,
 	Primary key (name)
 )
