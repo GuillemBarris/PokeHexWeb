@@ -4,11 +4,14 @@ import { LoginComponent } from '../components/login/login.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from '../services/users.service';
+import { of } from 'rxjs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
+  let service: UserService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,6 +22,7 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+    service = TestBed.inject(UserService);
     fixture.detectChanges();
   });
 
@@ -184,6 +188,31 @@ describe('LoginComponent', () => {
   
     expect(router.navigate).toHaveBeenCalledWith(['/sign-up']);
   });
-  
 
+  it('should call getUserByEmailAndPassword and navigate to /admin-home when email and password are valid and the user is an Admin', () => {
+    spyOn(component, 'validateEmail').and.returnValue(true);
+    spyOn(component, 'validatePassword').and.returnValue(true);
+    spyOn(router, 'navigate');
+  
+    spyOn(service, 'getUserByEmailAndPassword').and.returnValue(
+      of({ type: 'Admin' })
+    ); 
+  
+    component.email = 'guillembarris@gmail.com';
+    component.password = 'G5m1i128!';
+    component.login();
+  
+    fixture.detectChanges();
+  
+    expect(component.validateEmail).toHaveBeenCalled();
+    expect(component.validatePassword).toHaveBeenCalled();
+    expect(service.getUserByEmailAndPassword).toHaveBeenCalledWith(
+      component.email,
+      component.password
+    );
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/admin-home']);
+  });
+  
+  
 });
