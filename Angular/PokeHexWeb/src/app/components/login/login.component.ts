@@ -34,6 +34,8 @@ export class LoginComponent {
           console.log('User logged in:', data);
            if(data.type == 'Admin') {
             this.router.navigate(['/admin-home']);
+           } else if(data.type == 'Trainer') {
+            this.router.navigate(['/trainer-home']);
            }
         }),
         catchError((error) => {
