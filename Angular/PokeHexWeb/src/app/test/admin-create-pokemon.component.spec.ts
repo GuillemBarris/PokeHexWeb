@@ -34,5 +34,20 @@ describe('AdminCreatePokemonComponent', () => {
     expect(component.validPokemonName()).toBeFalse();   
   });
 
+  it('should set errorMessage whenp pokemonName is invalid', () => {
+    component.pokemonName = '';
+    component.validPokemonName();
+    expect(component.errorMessage).toBe('Worng Pokemon name');
+
+    component.pokemonName = 'Pik@chu';
+    component.validPokemonName();
+    expect(component.errorMessage).toBe('Worng Pokemon name');
+
+    component.pokemonName = 'P'.repeat(16);
+    component.validPokemonName();
+    expect(component.errorMessage).toBe('Worng Pokemon name');
+  });
+
+
 
 });
