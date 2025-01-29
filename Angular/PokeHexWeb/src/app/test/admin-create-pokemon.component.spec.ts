@@ -30,7 +30,7 @@ describe('AdminCreatePokemonComponent', () => {
     component.pokemonName = 'Pik@chu';
     expect(component.validPokemonName()).toBeFalse();
     
-    component.pokemonName = 'P'.repeat(15);
+    component.pokemonName = 'P'.repeat(16);
     expect(component.validPokemonName()).toBeFalse();   
   });
 
