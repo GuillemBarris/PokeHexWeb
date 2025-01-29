@@ -42,78 +42,85 @@ export class AdminCreatePokemonComponent {
 
     return true;
   }
-  validPokemonGeneration() {
-    
-
-    if (!this.generation) {
-      return false;
+  validPokemonGeneration(): boolean {
+    if (this.generation <= 0) {
+        this.errorMessage = 'Worng generation. Generation must be greater than 0';
+        return false;
     }
     if (this.generation > 2) {
-      return false;
+        this.errorMessage = 'Worng generation. Generation must be less than 1000';
+        return false;
     }
-    if (this.generation <= 0 ) {
-      return false;
+    if (!this.generation) {
+        return false;
     }
     return true;
-  }
+}
 
-
-  validPokemonCategory(): boolean {
+validPokemonCategory(): boolean {
     const trimmedCategory = this.category.trim();
 
     if (!trimmedCategory) {
-      return false;
+        this.errorMessage = 'Worng category. Category cannot be empty';
+        return false;
     }
-    if(trimmedCategory.length > 26) {
-      return false;
+    if (trimmedCategory.length > 25) {
+        this.errorMessage = 'Worng category. Category cannot be longer than 25 characters';
+        return false;
     }
-    if (!/^[a-zA-Z0-9]*$/.test(trimmedCategory)) {
-      return false;
+    if (!/^[a-zA-Z0-9]+$/.test(trimmedCategory)) {
+        this.errorMessage = 'Worng category. Category can only contain letters and numbers';
+        return false;
     }
     return true;
-  }
+}
 
-  validPokemonPs(): boolean {
+validPokemonPs(): boolean {
     if (this.ps < 0 || this.ps > 255) {
-      return false;
+        this.errorMessage = 'Worng Ps. Ps must be between 0 and 255';
+        return false;
     }
     return true;
-  }
+}
 
-  validPokemonAttack(): boolean {
+validPokemonAttack(): boolean {
     if (this.attack < 0 || this.attack > 255) {
-      return false;
+        this.errorMessage = 'Worng Attack. Attack must be between 0 and 255';
+        return false;
     }
     return true;
-  }
+}
 
-  validPokemonDefense(): boolean {
+validPokemonDefense(): boolean {
     if (this.defense < 0 || this.defense > 255) {
-      return false;
+        this.errorMessage = 'Worng Defense. Defense must be between 0 and 255';
+        return false;
     }
     return true;
-  }
+}
 
-  validPokemonSpAttack(): boolean {
+validPokemonSpAttack(): boolean {
     if (this.spAttack < 0 || this.spAttack > 255) {
-      return false;
+        this.errorMessage = 'Worng SpAttack. SpAttack must be between 0 and 255';
+        return false;
     }
     return true;
-  }
+}
 
-  validPokemonSpDefense(): boolean {
+validPokemonSpDefense(): boolean {
     if (this.spDefense < 0 || this.spDefense > 255) {
-      return false;
+        this.errorMessage = 'Worng SpDefense. SpDefense must be between 0 and 255';
+        return false;
     }
     return true;
-  }
+}
 
-  validPokemonSpeed(): boolean {
+validPokemonSpeed(): boolean {
     if (this.speed < 0 || this.speed > 255) {
-      return false;
+        this.errorMessage = 'Worng Speed. Speed must be between 0 and 255';
+        return false;
     }
     return true;
-  }
-
+}
 
 }
