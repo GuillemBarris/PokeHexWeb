@@ -207,4 +207,23 @@ describe('AdminCreatePokemonComponent', () => {
     component.validPokemonSpAttack();
     expect(component.errorMessage).toBe('Worng SpAttack. SpAttack must be between 0 and 255');
   });
+
+it('should call createPokemon when the button is double-clicked and all fields are valid', () => {
+  spyOn(component, 'createPokemon');
+
+  component.pokemonName = 'Pikachu';
+  component.generation = 1;
+  component.category = 'Electric';
+  component.ps = 35;
+  component.attack = 55;
+  component.defense = 40;
+  component.spAttack = 50;
+  component.spDefense = 50;
+  component.speed = 90;
+
+  const button = fixture.debugElement.nativeElement.querySelector('button');
+  button.dispatchEvent(new Event('dblclick'));
+
+  expect(component.createPokemon).toHaveBeenCalled();
+});
 });
