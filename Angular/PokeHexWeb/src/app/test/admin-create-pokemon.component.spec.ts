@@ -37,15 +37,15 @@ describe('AdminCreatePokemonComponent', () => {
   it('should set errorMessage whenp pokemonName is invalid', () => {
     component.pokemonName = '';
     component.validPokemonName();
-    expect(component.errorMessage).toBe('Worng Pokemon name');
+    expect(component.errorMessage).toBe('Worng Pokemon name. Pokemon name cannot be empty');
 
     component.pokemonName = 'Pik@chu';
     component.validPokemonName();
-    expect(component.errorMessage).toBe('Worng Pokemon name');
+    expect(component.errorMessage).toBe('Worng Pokemon name. Pokemon name cannot contain special characters');
 
     component.pokemonName = 'P'.repeat(16);
     component.validPokemonName();
-    expect(component.errorMessage).toBe('Worng Pokemon name');
+    expect(component.errorMessage).toBe('Worng Pokemon name. Pokemon name cannot be longer than 15 characters');
   });
 
 
