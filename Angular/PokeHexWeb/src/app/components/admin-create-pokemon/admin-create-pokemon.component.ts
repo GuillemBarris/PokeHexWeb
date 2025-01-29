@@ -12,19 +12,23 @@ import { FormsModule } from '@angular/forms';
 export class AdminCreatePokemonComponent {
 
   pokemonName: string = '';
+  errorMessage: string | null = null;
 
   validPokemonName(): boolean {
     const trimmedPokemonName = this.pokemonName.trim();
 
     if (!trimmedPokemonName) {
+      this.errorMessage = 'Worng Pokemon name. Pokemon name cannot be empty';
       return false;
     }
 
     if (trimmedPokemonName.length >= 15) {
+      this.errorMessage = 'Worng Pokemon name. Pokemon name cannot be longer than 15 characters';
       return false;
     }
 
     if (!/^[a-zA-Z0-9]*$/.test(trimmedPokemonName)) {
+      this.errorMessage = 'Worng Pokemon name. Pokemon name cannot contain special characters';
       return false;
     }
 
