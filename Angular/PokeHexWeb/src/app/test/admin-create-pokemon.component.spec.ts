@@ -56,7 +56,7 @@ describe('AdminCreatePokemonComponent', () => {
     component.generation = 0;
     expect(component.validPokemonGeneration()).toBeFalse();
 
-    component.generation = '9'.repeat(2);
+    component.generation =  Number("9".repeat(3));
     expect(component.validPokemonGeneration()).toBeFalse();
 
     // Validate Pokemon category
