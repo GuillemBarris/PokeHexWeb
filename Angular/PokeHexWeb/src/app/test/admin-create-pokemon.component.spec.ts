@@ -20,4 +20,17 @@ describe('AdminCreatePokemonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should validate Pokemon name', () => {
+    component.pokemonName = 'Pikachu';
+    expect(component.pokemonName).toBe('Pikachu');
+
+    component.pokemonName = '';
+    expect(component.ValidPokemonName()).toBeFalse();
+
+    component.pokemonName = 'Pik@chu';
+    expect(component.ValidPokemonName()).toBeFalse();
+   
+  });
+
+
 });
