@@ -50,100 +50,100 @@ describe('AdminCreatePokemonComponent', () => {
 
   it('should validate Pokemon generation, category, and stats', () => {
     // Validate Pokemon generation
-    component.pokemonGeneration = 1;
+    component.generation = 1;
     expect(component.validPokemonGeneration()).toBeTrue();
 
-    component.pokemonGeneration = 0;
+    component.generation = 0;
     expect(component.validPokemonGeneration()).toBeFalse();
 
-    component.pokemonGeneration = '9'.repeat(2);
+    component.generation = '9'.repeat(2);
     expect(component.validPokemonGeneration()).toBeFalse();
 
     // Validate Pokemon category
-    component.pokemonCategory = 'Electric';
+    component.category = 'Electric';
     expect(component.validPokemonCategory()).toBeTrue();
 
-    component.pokemonCategory = '';
+    component.category = '';
     expect(component.validPokemonCategory()).toBeFalse();
 
-    component.pokemonCategory = 'Electric'.repeat(26);
+    component.category = 'Electric'.repeat(26);
     expect(component.validPokemonCategory()).toBeFalse();
 
-    component pokemonCategory = 'Electric!@';
+    component.category = 'Electric!@';
     expect(component.validPokemonCategory()).toBeFalse();
     // Validate Pokemon Ps
-    component.pokemonPs = 35;
+    component.ps = 35;
    
     expect(component.validPokemonPs()).toBeTrue();
 
-    component.pokemonPs = -1;
+    component.ps = -1;
     expect(component.validPokemonPs()).toBeFalse();
 
-    component.pokemonPS = 256;
+    component.ps = 256;
     expect(component.validPokemonPs()).toBeFalse();
 
     //Validate Pokemon Attack
 
-    component.pokemonAttack = 55;
+    component.attack = 55;
 
     expect(component.validPokemonAttack()).toBeTrue();
 
-    component.pokemonAttack = -1;
+    component.attack = -1;
     expect(component.validPokemonAttack()).toBeFalse();
 
-    component.pokemonAttack = 256;
+    component.attack = 256;
 
     expect(component.validPokemonAttack()).toBeFalse();
 
     //Validate Pokemon Defense
 
-    component.pokemonDefense = 40;
+    component.defense = 40;
 
     expect(component.validPokemonDefense()).toBeTrue();
 
-    component.pokemonDefense = -1;
+    component.defense = -1;
     expect(component.validPokemonDefense()).toBeFalse();
 
-    component.pokemonDefense = 256;
+    component.defense = 256;
 
     expect(component.validPokemonDefense()).toBeFalse();
 
     //Validate Pokemon SpAttack
 
-    component.pokemonSpAttack = 50;
+    component.spAttack = 50;
 
     expect(component.validPokemonSpAttack()).toBeTrue();
 
-    component.pokemonSpAttack = -1;
+    component.spAttack= -1;
     expect(component.validPokemonSpAttack()).toBeFalse();
 
-    component.pokemonSpAttack = 256;
+    component.spAttack = 256;
 
     expect(component.validPokemonSpAttack()).toBeFalse();
 
     //Validate Pokemon SpDefense
 
-    component.pokemonSpDefense = 50;
+    component.spDefense = 50;
 
     expect(component.validPokemonSpDefense()).toBeTrue();
 
-    component.pokemonSpDefense = -1;
+    component.spDefense = -1;
     expect(component.validPokemonSpDefense()).toBeFalse();
 
-    component.pokemonSpDefense = 256;
+    component.spDefense = 256;
 
     expect(component.validPokemonSpDefense()).toBeFalse();
 
     //Validate Pokemon Speed
 
-    component.pokemonSpeed = 90;
+    component.speed = 90;
 
     expect(component.validPokemonSpeed()).toBeTrue();
 
-    component.pokemonSpeed = -1;
+    component.speed = -1;
     expect(component.validPokemonSpeed()).toBeFalse();
 
-    component.pokemonSpeed = 256;
+    component.speed = 256;
 
     expect(component.validPokemonSpeed()).toBeFalse();
   });
