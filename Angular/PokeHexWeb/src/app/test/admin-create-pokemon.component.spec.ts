@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminCreatePokemonComponent } from '../components/admin-create-pokemon/admin-create-pokemon.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AdminCreatePokemonComponent', () => {
   let component: AdminCreatePokemonComponent;
@@ -8,7 +10,8 @@ describe('AdminCreatePokemonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminCreatePokemonComponent]
+      imports: [AdminCreatePokemonComponent],
+      providers:[provideHttpClientTesting(), provideHttpClient()]
     })
     .compileComponents();
 

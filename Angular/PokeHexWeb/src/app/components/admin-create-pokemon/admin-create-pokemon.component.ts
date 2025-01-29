@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PokemonService } from '../../services/pokemon.service';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-create-pokemon',
@@ -11,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminCreatePokemonComponent {
 
+  constructor(private pokemonService: PokemonService, private router: Router) {}
+
+  pokemon: any[] = [{}];
   pokemonName: string = '';
   generation: number = 1;
   category: string = '';
@@ -20,6 +26,7 @@ export class AdminCreatePokemonComponent {
   spAttack: number = 0;
   spDefense: number = 0;
   speed: number = 0;
+  
 
   errorMessage: string | null = null;
   validPokemonName(): boolean {
@@ -121,6 +128,41 @@ validPokemonSpeed(): boolean {
         return false;
     }
     return true;
+}
+
+createPokemon(): void {
+    if (!this.validPokemonName() || !this.validPokemonGeneration() || !this.validPokemonCategory() || !this.validPokemonPs() || !this.validPokemonAttack() || !this.validPokemonDefense() || !this.validPokemonSpAttack() || !this.validPokemonSpDefense() || !this.validPokemonSpeed()) {
+        return;
+    } else if  (this.validPokemonName() == false || this.validPokemonGeneration() == false || this.validPokemonCategory() == false || this.validPokemonPs() == false || this.validPokemonAttack() == false || this.validPokemonDefense() == false || this.validPokemonSpAttack() == false || this.validPokemonSpDefense() == false || this.validPokemonSpeed() == false) {
+        return;
+    } else if (this.validPokemonName() == true && this.validPokemonGeneration() == true && this.validPokemonCategory() == true && this.validPokemonPs() == true && this.validPokemonAttack() == true && this.validPokemonDefense() == true && this.validPokemonSpAttack() == true && this.validPokemonSpDefense() == true && this.validPokemonSpeed() == true) {
+      this.errorMessage = "The pokemon has been created";
+      const newPokemon = {
+        name: this.pokemonName,
+        generation: this.generation,
+        category: this.category,
+        ps: this.ps,
+        attack: this.attack,
+        defense: this.defense,
+        spAttack: this.spAttack,
+        spDefense: this.spDefense,
+        speed: this.speed,
+      };
+      this.pokemonService
+        .postPokemon(newPokemon)
+        .pipe(
+          tap((response) => {
+            console.log('Pokemon added:', response);
+            this.pokemon.push(response);
+          }),
+          catchError((error) => {
+            console.error('Error adding pokemon:', error);
+            return of(null);
+          })
+        )
+        .subscribe();
+
+    }
 }
 
 }
