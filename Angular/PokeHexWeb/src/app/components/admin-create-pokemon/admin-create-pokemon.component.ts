@@ -12,8 +12,16 @@ import { FormsModule } from '@angular/forms';
 export class AdminCreatePokemonComponent {
 
   pokemonName: string = '';
-  errorMessage: string | null = null;
+  generation: number = 1;
+  category: string = '';
+  ps: number = 0;
+  attack: number = 0;
+  defense: number = 0;
+  spAttack: number = 0;
+  spDefense: number = 0;
+  speed: number = 0;
 
+  errorMessage: string | null = null;
   validPokemonName(): boolean {
     const trimmedPokemonName = this.pokemonName.trim();
 
@@ -34,5 +42,78 @@ export class AdminCreatePokemonComponent {
 
     return true;
   }
+  validPokemonGeneration() {
+    
+
+    if (!this.generation) {
+      return false;
+    }
+    if (this.generation > 2) {
+      return false;
+    }
+    if (this.generation <= 0 ) {
+      return false;
+    }
+    return true;
+  }
+
+
+  validPokemonCategory(): boolean {
+    const trimmedCategory = this.category.trim();
+
+    if (!trimmedCategory) {
+      return false;
+    }
+    if(trimmedCategory.length > 26) {
+      return false;
+    }
+    if (!/^[a-zA-Z0-9]*$/.test(trimmedCategory)) {
+      return false;
+    }
+    return true;
+  }
+
+  validPokemonPs(): boolean {
+    if (this.ps < 0 || this.ps > 255) {
+      return false;
+    }
+    return true;
+  }
+
+  validPokemonAttack(): boolean {
+    if (this.attack < 0 || this.attack > 255) {
+      return false;
+    }
+    return true;
+  }
+
+  validPokemonDefense(): boolean {
+    if (this.defense < 0 || this.defense > 255) {
+      return false;
+    }
+    return true;
+  }
+
+  validPokemonSpAttack(): boolean {
+    if (this.spAttack < 0 || this.spAttack > 255) {
+      return false;
+    }
+    return true;
+  }
+
+  validPokemonSpDefense(): boolean {
+    if (this.spDefense < 0 || this.spDefense > 255) {
+      return false;
+    }
+    return true;
+  }
+
+  validPokemonSpeed(): boolean {
+    if (this.speed < 0 || this.speed > 255) {
+      return false;
+    }
+    return true;
+  }
+
 
 }
