@@ -147,4 +147,64 @@ describe('AdminCreatePokemonComponent', () => {
 
     expect(component.validPokemonSpeed()).toBeFalse();
   });
+
+  it('should set errorMessage when Pokemon generation, category, and stats are invalid', () => {
+    // Set errorMessage when Pokemon generation is invalid
+    component.generation = 0;
+    component.validPokemonGeneration();
+    expect(component.errorMessage).toBe('Worng generation. Generation must be greater than 0');
+
+    component.generation = Number("9".repeat(3));
+    component.validPokemonGeneration();
+    expect(component.errorMessage).toBe('Worng generation. Generation must be less than 1000');
+
+    // Set errorMessage when Pokemon category is invalid
+    component.category = '';
+    component.validPokemonCategory();
+    expect(component.errorMessage).toBe('Worng category. Category cannot be empty');
+
+    component.category = 'Electric'.repeat(26);
+    component.validPokemonCategory();
+    expect(component.errorMessage).toBe('Worng category. Category cannot be longer than 25 characters');
+
+    component.category = 'Electric!@';
+    component.validPokemonCategory();
+    expect(component.errorMessage).toBe('Worng category. Category can only contain letters and numbers');
+
+    // Set errorMessage when Pokemon Ps is invalid
+    component.ps = -1;
+    component.validPokemonPs();
+    expect(component.errorMessage).toBe('Worng Ps. Ps must be between 0 and 255');
+
+    component.ps = 256;
+    component.validPokemonPs();
+    expect(component.errorMessage).toBe('Worng Ps. Ps must be between 0 and 255');
+
+    // Set errorMessage when Pokemon Attack is invalid
+    component.attack = -1;
+    component.validPokemonAttack();
+    expect(component.errorMessage).toBe('Worng Attack. Attack must be between 0 and 255');
+
+    component.attack = 256;
+    component.validPokemonAttack();
+    expect(component.errorMessage).toBe('Worng Attack. Attack must be between 0 and 255');
+
+    // Set errorMessage when Pokemon Defense is invalid
+    component.defense = -1;
+    component.validPokemonDefense();
+    expect(component.errorMessage).toBe('Worng Defense. Defense must be between 0 and 255');
+
+    component.defense = 256;
+    component.validPokemonDefense();
+    expect(component.errorMessage).toBe('Worng Defense. Defense must be between 0 and 255');
+
+    // Set errorMessage when Pokemon SpAttack is invalid
+    component.spAttack = -1;
+    component.validPokemonSpAttack();
+    expect(component.errorMessage).toBe('Worng SpAttack. SpAttack must be between 0 and 255');
+
+    component.spAttack = 256;
+    component.validPokemonSpAttack();
+    expect(component.errorMessage).toBe('Worng SpAttack. SpAttack must be between 0 and 255');
+  });
 });
