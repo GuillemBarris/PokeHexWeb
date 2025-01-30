@@ -41,4 +41,12 @@ describe('DatabaseService', () => {
     const req = httpMock.expectOne(`${service['Url']}/createPokemon/`);
     expect(req.request.method).toBe('POST');
   });
+  it('should get all pokemons', () => {
+    service.getPokemons().subscribe((response) => {
+      expect(response).toEqual([]);
+    });
+    const req = httpMock.expectOne(`${service['Url']}/getPokemon/`);
+    expect(req.request.method).toBe('GET');
+
+  });
 });
