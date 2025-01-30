@@ -21,5 +21,14 @@ export class PokemonService {
         )
     }
 
+    getPokemons() {
+        return this.http.get<any>(`${this.Url}/getPokemons/`).pipe(
+            catchError((err) => {
+                console.error('Error getting pokemons:', err);
+                return of(null)
+            })
+        )
+    }
+
 
 }
