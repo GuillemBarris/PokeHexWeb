@@ -15,5 +15,8 @@ export class AdminHomeComponent {
   getToCreatePokemon() {
     this.router.navigate(['/admin-create-pokemon']);
   }
+  getToViewAndEditPokemon() {
+    this.router.navigate(['/admin-pokemon']);
+  }
 
 }
