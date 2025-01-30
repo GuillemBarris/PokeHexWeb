@@ -45,7 +45,7 @@ describe('DatabaseService', () => {
     service.getPokemons().subscribe((response) => {
       expect(response).toEqual([]);
     });
-    const req = httpMock.expectOne(`${service['Url']}/getPokemon/`);
+    const req = httpMock.expectOne(`${service['Url']}/getPokemons/`);
     expect(req.request.method).toBe('GET');
 
   });
