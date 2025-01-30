@@ -1,7 +1,6 @@
 import sql from "mssql";
 import config from "../config/dbConfig.js";
 
-import dotenv from "dotenv";
 export const CreatePokemon = async (req, res) => {
     const { name, generation, category, ps, attack, defense, spAttack, spDefense, speed} = req.body;
 
@@ -30,3 +29,13 @@ export const CreatePokemon = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }; 
+
+export const GetPokemon = async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("SELECT * FROM Pokemon");
+        return res.status(200).json(result.recordset);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
