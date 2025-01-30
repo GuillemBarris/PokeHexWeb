@@ -35,4 +35,17 @@ describe('AdminHomeComponent', () => {
   
     expect(router.navigate).toHaveBeenCalledWith(['/admin-create-pokemon']);
   });
+
+  it('should navigate to /admin-pokemon when goToViewAndEditPokemon is called', () => {
+    spyOn(router, 'navigate'); 
+  
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    const loginButton = buttons[1];
+    const event = new MouseEvent('dblclick');
+    loginButton.dispatchEvent(event);
+  
+    fixture.detectChanges();
+  
+    expect(router.navigate).toHaveBeenCalledWith(['/admin-pokemon']);
+  });
 });
