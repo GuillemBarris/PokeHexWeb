@@ -42,4 +42,21 @@ describe('AdminPokemonComponent', () => {
 
     expect(component.pokemons).toEqual(mockPokemons);
   });
+
+  it('should handle button double-click and number increment correctly', () => {
+    spyOn(component, 'incrementNumber');
+  
+    const button = fixture.nativeElement.querySelector('button');
+  
+    button.dispatchEvent(new Event('dblclick'));
+
+    expect(component.incrementNumber).toHaveBeenCalled();
+  
+    
+    component.number = 5;
+
+    component.someFunction();
+  
+    expect(component.number).toBe(36);
+  });
 });
