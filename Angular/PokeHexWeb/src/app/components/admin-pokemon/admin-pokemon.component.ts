@@ -16,7 +16,7 @@ export class AdminPokemonComponent {
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    this.pokemonService.getPokemons().subscribe(pokemons => {
+    this.pokemonService.getPokemons(31).subscribe(pokemons => {
       this.pokemons = pokemons;
     });
   }
