@@ -55,7 +55,7 @@ describe('AdminPokemonComponent', () => {
     
     component.number = 5;
 
-    component.getPokemons();
+    component.incrementNumber();
   
     expect(component.number).toBe(36);
   });
