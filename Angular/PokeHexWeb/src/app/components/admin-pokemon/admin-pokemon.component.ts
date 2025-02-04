@@ -12,13 +12,18 @@ import { CommonModule } from '@angular/common';
 export class AdminPokemonComponent {
 
   pokemons: any[] = [];
-
+  number: number = 0;
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.pokemonService.getPokemons(31).subscribe(pokemons => {
       this.pokemons = pokemons;
     });
+  }
+
+  incrementNumber(){
+    this.number += 31;
+    return this.number;
   }
 
 
