@@ -41,12 +41,14 @@ describe('DatabaseService', () => {
     const req = httpMock.expectOne(`${service['Url']}/createPokemon/`);
     expect(req.request.method).toBe('POST');
   });
-  it('should get all pokemons', () => {
-    service.getPokemons().subscribe((response) => {
-      expect(response).toEqual([]);
+  it('should get 31 pokemon', () => {
+    const number = 31;
+    const mockPokemons = Array(31).fill({ name: 'Pikachu' });
+    service.getPokemons(number).subscribe((response) => {
+      expect(response).toEqual(mockPokemons);
     });
-    const req = httpMock.expectOne(`${service['Url']}/getPokemons/`);
+    const req = httpMock.expectOne(`${service['Url']}/getPokemons/${number}`);
     expect(req.request.method).toBe('GET');
-
+    req.flush(mockPokemons);
   });
 });
