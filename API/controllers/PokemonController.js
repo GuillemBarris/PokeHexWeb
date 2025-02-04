@@ -32,8 +32,9 @@ export const CreatePokemon = async (req, res) => {
 
 export const GetPokemon = async (req, res) => {
     try {
+        let {offset} = req.params;
         let pool = await sql.connect(config);
-        let result = await pool.request().query("SELECT * FROM Pokemon");
+        let result = await pool.request().query("SELECT * FROM Pokemon Order By name OFFSET " + offset + " ROWS FETCH NEXT " +31+ " ROWS ONLY");
         return res.status(200).json(result.recordset);
     } catch (error) {
         return res.status(500).json({ message: error.message });
