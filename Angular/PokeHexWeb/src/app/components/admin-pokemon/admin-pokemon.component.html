@@ -13,16 +13,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr >
-            <td>name</td>
-            <td>generation</td>
-            <td>category</td>
-            <td>ps</td>
-            <td>attack</td>
-            <td>defense</td>
-            <td>spAttack</td>
-            <td>spDefense</td>
-            <td>speed</td>
+        <tr *ngFor="let pokemon of pokemons">
+            <td>{{ pokemon.name }}</td>
+            <td>{{ pokemon.generation }}</td>
+            <td>{{ pokemon.category }}</td>
+            <td>{{ pokemon.ps }}</td>
+            <td>{{ pokemon.attack }}</td>
+            <td>{{ pokemon.defense }}</td>
+            <td>{{ pokemon.spAttack }}</td>
+            <td>{{ pokemon.spDefense }}</td>
+            <td>{{ pokemon.speed }}</td>
         </tr>
     </tbody>
 </table>
