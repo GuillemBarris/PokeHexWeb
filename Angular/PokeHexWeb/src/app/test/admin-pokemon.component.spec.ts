@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminPokemonComponent } from '../components/admin-pokemon/admin-pokemon.component';
 import { PokemonService } from '../services/pokemon.service';
 import { of } from 'rxjs';
-import { provideHttpClient } from '@angular/common/http';
+import { AdminPokemonComponent } from '../components/admin-pokemon/admin-pokemon.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('AdminPokemonComponent', () => {
   let component: AdminPokemonComponent;
@@ -15,19 +15,23 @@ describe('AdminPokemonComponent', () => {
   ];
 
   beforeEach(async () => {
+    // Create a spy for the PokemonService with getPokemons mocked
     const pokemonServiceSpy = jasmine.createSpyObj('PokemonService', ['getPokemons']);
 
     await TestBed.configureTestingModule({
       imports: [AdminPokemonComponent],
       providers: [
-        provideHttpClient(),
-        { provide: PokemonService, useValue: pokemonServiceSpy } // Provide the mock service
-      ]
+        { provide: PokemonService, useValue: pokemonServiceSpy },
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdminPokemonComponent);
     component = fixture.componentInstance;
     pokemonService = TestBed.inject(PokemonService) as jasmine.SpyObj<PokemonService>;
+
+    // Mock the getPokemons method to return an observable of mockPokemons
+    pokemonService.getPokemons.and.returnValue(of(mockPokemons));
   });
 
   it('should create', () => {
@@ -44,19 +48,14 @@ describe('AdminPokemonComponent', () => {
   });
 
   it('should handle button double-click and number increment correctly', () => {
-    spyOn(component, 'incrementNumber');
-  
     const button = fixture.nativeElement.querySelector('button');
-  
-    button.dispatchEvent(new Event('dblclick'));
-
-    expect(component.incrementNumber).toHaveBeenCalled();
-  
     
-    component.number = 5;
+    button.dispatchEvent(new MouseEvent('dblclick'));
 
-    component.incrementNumber();
-  
-    expect(component.number).toBe(36);
+    fixture.detectChanges();
+
+    expect(component.number).toBe(31); 
   });
+  
+  
 });
