@@ -15,7 +15,6 @@ describe('AdminPokemonComponent', () => {
   ];
 
   beforeEach(async () => {
-    // Create a spy for the PokemonService with getPokemons mocked
     const pokemonServiceSpy = jasmine.createSpyObj('PokemonService', ['getPokemons']);
 
     await TestBed.configureTestingModule({
@@ -30,7 +29,6 @@ describe('AdminPokemonComponent', () => {
     component = fixture.componentInstance;
     pokemonService = TestBed.inject(PokemonService) as jasmine.SpyObj<PokemonService>;
 
-    // Mock the getPokemons method to return an observable of mockPokemons
     pokemonService.getPokemons.and.returnValue(of(mockPokemons));
   });
 
@@ -38,15 +36,24 @@ describe('AdminPokemonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load pokemon on init', () => {
-    pokemonService.getPokemons.and.returnValue(of(mockPokemons));
+  it('should load pokemons with a different value of this.number', () => {
+  
+
+    const mockResponse = {
+        pokemons: [{ name: 'Charmander' }, { name: 'Squirtle' }],
+        offset: 0,
+        limit: 31
+    };
+
+    pokemonService.getPokemons.and.returnValue(of(mockResponse));
+
     component.ngOnInit();
 
-    expect(pokemonService.getPokemons).toHaveBeenCalled();
-
-    expect(component.pokemons).toEqual(mockPokemons);
-  });
-
+    expect(pokemonService.getPokemons).toHaveBeenCalledWith(0);
+    expect(component.pokemons).toEqual(mockResponse.pokemons);
+    expect(component.offset).toEqual(mockResponse.offset);
+    expect(component.limit).toEqual(mockResponse.limit);
+});
   it('should handle button double-click and number increment correctly', () => {
     const button = fixture.nativeElement.querySelector('button');
     
