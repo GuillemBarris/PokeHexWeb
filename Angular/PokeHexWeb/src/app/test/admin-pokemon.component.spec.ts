@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PokemonService } from '../services/pokemon.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AdminPokemonComponent } from '../components/admin-pokemon/admin-pokemon.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 

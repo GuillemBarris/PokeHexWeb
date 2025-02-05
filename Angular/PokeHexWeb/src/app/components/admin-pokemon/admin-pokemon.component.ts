@@ -26,6 +26,7 @@ export class AdminPokemonComponent {
   }
 
   incrementNumber() {
+
     const originalNumber = this.number;
   
     this.number += 31;
@@ -40,8 +41,11 @@ export class AdminPokemonComponent {
           this.offset = pl.offset;
           this.limit = pl.limit;
         }
+      },
+      error => {
+        this.number = originalNumber;
+        console.error("Error al cargar los Pokémon:", error);
       }
-      
     );
   
     return this.number;
