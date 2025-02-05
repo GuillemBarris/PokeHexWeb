@@ -9,10 +9,11 @@ describe('AdminPokemonComponent', () => {
   let fixture: ComponentFixture<AdminPokemonComponent>;
   let pokemonService: jasmine.SpyObj<PokemonService>;
 
-  const mockPokemons = [
-    { name: 'Pikachu', generation: 1, category: 'Pikachu', ps: 35, attack: 55, defense: 40, spAttack: 50, spDefense: 50, speed: 90 },
-    { name: 'Bulbasaur', generation: 1, category: 'Seed', ps: 45, attack: 49, defense: 49, spAttack: 65, spDefense: 65, speed: 45 },
-  ];
+  const mockResponse = {
+    pokemons: ['Pikachu', 'Charmander'],
+    offset: 31,
+    limit: 20
+  };
 
   beforeEach(async () => {
     const pokemonServiceSpy = jasmine.createSpyObj('PokemonService', ['getPokemons']);
@@ -29,7 +30,7 @@ describe('AdminPokemonComponent', () => {
     component = fixture.componentInstance;
     pokemonService = TestBed.inject(PokemonService) as jasmine.SpyObj<PokemonService>;
 
-    pokemonService.getPokemons.and.returnValue(of(mockPokemons));
+    pokemonService.getPokemons.and.returnValue(of(mockResponse));
   });
 
   it('should create', () => {
@@ -62,6 +63,13 @@ describe('AdminPokemonComponent', () => {
     fixture.detectChanges();
 
     expect(component.number).toBe(31); 
+  });
+  it('should update pokemons, offset, and limit after getPokemons call', () => {
+   const result = component.incrementNumber();
+    expect(component.pokemons).toEqual(mockResponse.pokemons);
+    expect(component.offset).toBe(mockResponse.offset);
+    expect(component.limit).toBe(mockResponse.limit);
+    expect(result).toBe(31);
   });
   
   
