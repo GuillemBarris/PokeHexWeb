@@ -25,15 +25,26 @@ export class AdminPokemonComponent {
     });
   }
 
-  incrementNumber(){
+  incrementNumber() {
+    const originalNumber = this.number;
+  
     this.number += 31;
-    this.pokemonService.getPokemons(this.number).subscribe(pl => {
-      this.pokemons = pl.pokemons;
-      this.offset = pl.offset;
-      this.limit = pl.limit;
-    });
+  
+    this.pokemonService.getPokemons(this.number).subscribe(
+      pl => {
+        if (pl.pokemons.length <= 0) {
+          this.number = originalNumber;
+          console.log("No hay más Pokémon para cargar.");
+        } else {
+          this.pokemons = pl.pokemons;
+          this.offset = pl.offset;
+          this.limit = pl.limit;
+        }
+      }
+      
+    );
+  
     return this.number;
   }
-
-
 }
+    
