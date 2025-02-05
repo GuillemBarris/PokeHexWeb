@@ -13,11 +13,15 @@ export class AdminPokemonComponent {
 
   pokemons: any[] = [];
   number: number = 0;
+  offset: number = 0;
+  limit: number = 0;
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    this.pokemonService.getPokemons(31).subscribe(pokemons => {
-      this.pokemons = pokemons;
+    this.pokemonService.getPokemons(this.number).subscribe(pl => {
+      this.pokemons = pl.pokemons;
+      this.offset = pl.offset;
+      this.limit = pl.limit;
     });
   }
 
