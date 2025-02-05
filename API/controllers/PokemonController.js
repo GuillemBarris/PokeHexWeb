@@ -33,9 +33,14 @@ export const CreatePokemon = async (req, res) => {
 export const GetPokemon = async (req, res) => {
     try {
         let {offset} = req.params;
+        offset = parseInt(offset); 
         let pool = await sql.connect(config);
-        let result = await pool.request().query("SELECT * FROM Pokemon Order By name OFFSET " + offset + " ROWS FETCH NEXT " +31+ " ROWS ONLY");
-        return res.status(200).json(result.recordset);
+        let result = await pool.request().query(" use PokeHexDatabase SELECT * FROM Pokemon Order By name OFFSET " + offset + " ROWS FETCH NEXT " +31+ " ROWS ONLY");
+        return res.status(200).json({
+            pokemons: result.recordset,
+            offset: offset,
+            limit: offset + 31
+        });   
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
