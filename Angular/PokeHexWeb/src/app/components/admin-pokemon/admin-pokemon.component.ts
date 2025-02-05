@@ -27,6 +27,11 @@ export class AdminPokemonComponent {
 
   incrementNumber(){
     this.number += 31;
+    this.pokemonService.getPokemons(this.number).subscribe(pl => {
+      this.pokemons = pl.pokemons;
+      this.offset = pl.offset;
+      this.limit = pl.limit;
+    });
     return this.number;
   }
 
