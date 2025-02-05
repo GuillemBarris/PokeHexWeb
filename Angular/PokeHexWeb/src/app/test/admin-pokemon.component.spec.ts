@@ -72,5 +72,21 @@ describe('AdminPokemonComponent', () => {
     expect(result).toBe(31);
   });
   
+  it('should revert number increment if no pokemons are returned', () => {
+    const originalNumber = component.number;
+    const mockEmptyResponse = {
+      pokemons: [],
+      offset: 31,
+      limit: 20
+    };
+  
+    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+  
+    const result = component.incrementNumber();
+  
+    expect(component.number).toBe(originalNumber); // El número debe revertirse
+    expect(result).toBe(originalNumber); // El resultado debe ser el número original
+    expect(component.pokemons).toEqual([]); // La lista de Pokémon debe estar vacía
+  });
   
 });
