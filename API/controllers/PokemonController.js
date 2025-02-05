@@ -39,7 +39,7 @@ export const GetPokemon = async (req, res) => {
         return res.status(200).json({
             pokemons: result.recordset,
             offset: offset,
-            limit: offset + 31
+            limit: offset + 30
         });   
     } catch (error) {
         return res.status(500).json({ message: error.message });
