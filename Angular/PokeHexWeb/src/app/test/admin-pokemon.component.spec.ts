@@ -54,10 +54,10 @@ describe('AdminPokemonComponent', () => {
     expect(component.offset).toEqual(mockResponse.offset);
     expect(component.limit).toEqual(mockResponse.limit);
 });
-  it('should handle button double-click and number increment correctly', () => {
+  it('should handle button click and number increment correctly', () => {
     const button = fixture.nativeElement.querySelector('button');
     
-    button.dispatchEvent(new MouseEvent('dblclick'));
+    button.dispatchEvent(new MouseEvent('click'));
 
     fixture.detectChanges();
 
