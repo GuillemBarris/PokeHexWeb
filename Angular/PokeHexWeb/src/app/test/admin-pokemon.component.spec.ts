@@ -12,7 +12,7 @@ describe('AdminPokemonComponent', () => {
   const mockResponse = {
     pokemons: ['Pikachu', 'Charmander'],
     offset: 31,
-    limit: 20
+    limit: 61,
   };
 
   beforeEach(async () => {
@@ -129,6 +129,7 @@ describe('AdminPokemonComponent', () => {
     expect(component.number).toBe(0); 
     expect(component.pokemons).toEqual([]); 
   });
+
   it('should handle button click and decrement correctly', () => {
     const button = fixture.nativeElement.querySelector('button')
     component.number = 31;
@@ -138,5 +139,13 @@ describe('AdminPokemonComponent', () => {
 
     expect(component.number).toBe(0); 
   });
+
+  it('should decrementNumber update pokemons, offset, and limit after getPokemons call', () => {
+    const result = component.decrementNumber();
+     expect(component.pokemons).toEqual(mockResponse.pokemons);
+     expect(component.offset).toBe(mockResponse.offset);
+     expect(component.limit).toBe(mockResponse.limit);
+     expect(result).toBe(0);
+   });
   
 });
