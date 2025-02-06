@@ -148,5 +148,23 @@ describe('AdminPokemonComponent', () => {
      expect(component.limit).toBe(mockResponse.limit);
      expect(result).toBe(0);
    });
+
+   it('should revert number decremnet if no pokemons are returned', () => {
+
+    const originalNumber = component.number;
+    const mockEmptyResponse = {
+      pokemons: [],
+      offset: 0,
+      limit: 31 
+    };
+  
+    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+  
+    const result = component.decrementNumber();
+  
+    expect(component.number).toBe(originalNumber); 
+    expect(result).toBe(originalNumber); 
+    expect(component.pokemons).toEqual([]); 
+  });
   
 });
