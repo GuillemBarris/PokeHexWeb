@@ -68,7 +68,12 @@ export class AdminPokemonComponent {
           this.limit = p1.limit;
         }
       }),
-    ).subscribe();
+      catchError((error) => {
+        this.number = originalNumber;
+        this.errorMessage = 'Failed to load Pokémons.';
+        return of(null);
+      }
+    )).subscribe();
 
     return this.number;
   }
