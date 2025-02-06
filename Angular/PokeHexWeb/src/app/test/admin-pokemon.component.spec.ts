@@ -141,6 +141,7 @@ describe('AdminPokemonComponent', () => {
   });
 
   it('should decrementNumber update pokemons, offset, and limit after getPokemons call', () => {
+    component.number = 31;
     const result = component.decrementNumber();
      expect(component.pokemons).toEqual(mockResponse.pokemons);
      expect(component.offset).toBe(mockResponse.offset);
