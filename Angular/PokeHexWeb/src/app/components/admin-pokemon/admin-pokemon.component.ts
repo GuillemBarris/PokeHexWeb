@@ -58,6 +58,13 @@ export class AdminPokemonComponent {
   decrementNumber() {
     
     this.number -= 31;
+    this.pokemonService.getPokemons(this.number).pipe(
+      tap((p1) => {
+       this.pokemons = p1.pokemons;
+        this.offset = p1.offset;
+        this.limit = p1.limit;
+      }),
+    ).subscribe();
 
     return this.number;
   }
