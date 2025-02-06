@@ -15,6 +15,7 @@ export class AdminPokemonComponent {
   number: number = 0;
   offset: number = 0;
   limit: number = 0;
+  errorMessage: string | null = null;
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class AdminPokemonComponent {
       pl => {
         if (pl.pokemons.length <= 0) {
           this.number = originalNumber;
-          console.log("No hay más Pokémon para cargar.");
+          this.errorMessage = 'There are no more Pokémons to load.';
         } else {
           this.pokemons = pl.pokemons;
           this.offset = pl.offset;
@@ -44,7 +45,7 @@ export class AdminPokemonComponent {
       },
       error => {
         this.number = originalNumber;
-        console.error("Error al cargar los Pokémon:", error);
+        this.errorMessage = 'Failed to load Pokémons.';
       }
     );
   
