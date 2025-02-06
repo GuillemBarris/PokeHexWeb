@@ -179,5 +179,33 @@ describe('AdminPokemonComponent', () => {
     expect(result).toBe(originalNumber);
     expect(component.pokemons).toEqual([]); 
   });
+  it('should function decrementNumber set errorMessage if getPokemons call fails or if no pokemons are returned', () => {
+    const mockEmptyResponse = {
+      pokemons: [],
+      offset: 31,
+      limit: 20
+    };
+  
+    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+  
+    component.decrementNumber();
+  
+    expect(component.errorMessage).toBe('There are no more Pokémons to load.'); 
+    expect(component.number).toBe(0);
+    expect(component.pokemons).toEqual([]); 
+  
+    component.errorMessage = '';
+    component.number = 0;
+    component.pokemons = [];
+  
+    const mockError = new Error('Failed to load Pokémons.');
+    pokemonService.getPokemons.and.returnValue(throwError(() => mockError));
+  
+    component.decrementNumber();
+  
+    expect(component.errorMessage).toBe('Failed to load Pokémons.'); 
+    expect(component.number).toBe(0); 
+    expect(component.pokemons).toEqual([]); 
+  });
   
 });
