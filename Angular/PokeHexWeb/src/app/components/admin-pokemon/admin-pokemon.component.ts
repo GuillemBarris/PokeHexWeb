@@ -54,5 +54,12 @@ export class AdminPokemonComponent {
   
     return this.number;
   }
+
+  decrementNumber() {
+    
+    this.number -= 31;
+
+    return this.number;
+  }
 }
     
