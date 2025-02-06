@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { CommonModule } from '@angular/common';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-pokemon',
@@ -32,22 +33,24 @@ export class AdminPokemonComponent {
   
     this.number += 31;
   
-    this.pokemonService.getPokemons(this.number).subscribe(
-      pl => {
-        if (pl.pokemons.length <= 0) {
+    this.pokemonService.getPokemons(this.number).pipe(
+      tap((p1) => {
+        if (p1.pokemons.length <= 0) {
           this.number = originalNumber;
           this.errorMessage = 'There are no more Pokémons to load.';
         } else {
-          this.pokemons = pl.pokemons;
-          this.offset = pl.offset;
-          this.limit = pl.limit;
+          this.pokemons = p1.pokemons
+          this.offset = p1.offset;
+          this.limit = p1.limit;
         }
-      },
-      error => {
+      }),
+      catchError((error) => {
         this.number = originalNumber;
         this.errorMessage = 'Failed to load Pokémons.';
+        return of(null);
       }
-    );
+    )).subscribe();
+ 
   
     return this.number;
   }
