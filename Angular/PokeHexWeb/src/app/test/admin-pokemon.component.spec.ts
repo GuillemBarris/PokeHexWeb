@@ -166,5 +166,18 @@ describe('AdminPokemonComponent', () => {
     expect(result).toBe(originalNumber); 
     expect(component.pokemons).toEqual([]); 
   });
+
+  it('should handle error and revert number decrement', () => {
+    const originalNumber = component.number;
+    const mockError = new Error('Failed to load Pokémon');
+  
+    pokemonService.getPokemons.and.returnValue(throwError(() => mockError));
+  
+    const result = component.decrementNumber();
+  
+    expect(component.number).toBe(originalNumber); 
+    expect(result).toBe(originalNumber);
+    expect(component.pokemons).toEqual([]); 
+  });
   
 });
