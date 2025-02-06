@@ -131,9 +131,9 @@ describe('AdminPokemonComponent', () => {
   });
   it('should handle button click and decrement correctly', () => {
     const button = fixture.nativeElement.querySelector('button')
-    
+    component.number = 31;
     button.dispatchEvent(new MouseEvent('click'));
-
+ 
     fixture.detectChanges();
 
     expect(component.number).toBe(0); 
