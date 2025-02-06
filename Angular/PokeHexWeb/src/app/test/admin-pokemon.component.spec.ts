@@ -56,7 +56,7 @@ describe('AdminPokemonComponent', () => {
     expect(component.limit).toEqual(mockResponse.limit);
 });
   it('should handle button click and number increment correctly', () => {
-    const button = fixture.nativeElement.querySelector('button');
+    const button = fixture.nativeElement.querySelectorAll('button')[1];
     
     button.dispatchEvent(new MouseEvent('click'));
 
@@ -129,4 +129,14 @@ describe('AdminPokemonComponent', () => {
     expect(component.number).toBe(0); 
     expect(component.pokemons).toEqual([]); 
   });
+  it('should handle button click and decrement correctly', () => {
+    const button = fixture.nativeElement.querySelector('button')
+    
+    button.dispatchEvent(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    expect(component.number).toBe(0); 
+  });
+  
 });
