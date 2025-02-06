@@ -62,6 +62,7 @@ export class AdminPokemonComponent {
       tap((p1) => {
         if(p1.pokemons.length <= 0) {
           this.number = originalNumber;
+          this.errorMessage = 'There are no more Pokémons to load.';
         }else {
           this.pokemons = p1.pokemons
           this.offset = p1.offset;
