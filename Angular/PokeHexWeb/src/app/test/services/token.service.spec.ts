@@ -39,7 +39,7 @@ describe('Token', () => {
   it('should navigate to login if authToken is not present', () => {
     spyOn(router, 'navigate');
 
-    spyOn(localStorage, 'getItem').and.returnValue(null);
+    spyOn(localStorage, 'authToken').and.returnValue(null);
 
     token.TokenPresent();
 
