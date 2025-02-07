@@ -24,4 +24,11 @@ describe('Token', () => {
     expect(token).toBeTruthy();
   });
 
+  it('should save the token to localStorage', () => {
+    const mockData = { token: 'fake-token' };
+
+    token.saveToken(mockData);
+
+    expect(localStorage.getItem('authToken')).toBe('fake-token');
+  });
 });
