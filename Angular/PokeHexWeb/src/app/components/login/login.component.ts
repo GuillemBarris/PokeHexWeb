@@ -4,6 +4,7 @@ import { UserService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string | null = null;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private token:Token) {}
 
   login() {
     if (!this.validateEmail() || !this.validatePassword()) {
@@ -32,6 +33,7 @@ export class LoginComponent {
       .pipe(
         tap((data) => {
           console.log('User logged in:', data);
+          this.token.saveToken(data);
            if(data.type == 'Admin') {
             this.router.navigate(['/admin-home']);
            } else if(data.type == 'Trainer') {
