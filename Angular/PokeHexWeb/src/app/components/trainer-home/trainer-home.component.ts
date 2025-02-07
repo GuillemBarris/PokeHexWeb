@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-trainer-home',
@@ -9,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class TrainerHomeComponent {
 
+  constructor(private token: Token){}
+
+    ngOnInit(){
+      this.token.TokenPresent();
+    }
 }

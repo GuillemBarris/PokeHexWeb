@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
 import { catchError, of, tap } from 'rxjs';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-admin-create-pokemon',
@@ -14,7 +15,7 @@ import { catchError, of, tap } from 'rxjs';
 })
 export class AdminCreatePokemonComponent {
 
-  constructor(private pokemonService: PokemonService, private router: Router) {}
+  constructor(private pokemonService: PokemonService, private router: Router, private token: Token) {}
 
   pokemon: any[] = [{}];
   pokemonName: string = '';
@@ -29,6 +30,10 @@ export class AdminCreatePokemonComponent {
   
 
   errorMessage: string | null = null;
+  
+  ngOnInit(){
+    this.token.TokenPresent()
+  }
   validPokemonName(): boolean {
     const trimmedPokemonName = this.pokemonName.trim();
 

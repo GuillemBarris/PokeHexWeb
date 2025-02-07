@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -10,7 +11,11 @@ import { Router } from '@angular/router';
 })
 export class AdminHomeComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private token: Token) { }
+
+  ngOnInit(){
+    this.token.TokenPresent();
+  }
 
   getToCreatePokemon() {
     this.router.navigate(['/admin-create-pokemon']);

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of, tap } from 'rxjs';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-admin-pokemon',
@@ -17,14 +18,16 @@ export class AdminPokemonComponent {
   offset: number = 0;
   limit: number = 0;
   errorMessage: string | null = null;
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, private token: Token) {}
 
   ngOnInit(): void {
+    this.token.TokenPresent();
     this.pokemonService.getPokemons(this.number).subscribe(pl => {
       this.pokemons = pl.pokemons;
       this.offset = pl.offset;
       this.limit = pl.limit;
     });
+   
   }
 
   incrementNumber() {
