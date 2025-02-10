@@ -17,7 +17,7 @@ export class Token {
     }
 
     TokenPresent(){
-        if(localStorage.getItem('authToken')!){
+        if(!localStorage.getItem('authToken')){
                this.router.navigate(['/login']);
         }
     }
