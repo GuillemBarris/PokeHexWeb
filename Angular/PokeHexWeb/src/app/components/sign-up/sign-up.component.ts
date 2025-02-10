@@ -4,22 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
-
-
+import { User } from '../../models/User'
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, CommonModule, ],
-
+  imports: [FormsModule, CommonModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
- 
 })
 export class SignUpComponent {
   constructor(private userService: UserService, private router: Router) {}
 
-  user: any[] = [{}];
+  user: User[] = []; // Now the user is an array of User objects
   name: string = '';
   email: string = '';
   password: string = '';
@@ -32,56 +29,40 @@ export class SignUpComponent {
       !this.validatePassword()
     ) {
       return;
-    } else if(this.validateName() == false || this.validateEmail() == false || this.validatePassword() == false) {
-      return ;
-    } else if(this.validateName() == true && this.validateEmail() == true && this.validatePassword() == true) {
-  
-      this.user.forEach(() => {
-        const newUser = {
-          name: this.name,
-          email: this.email,
-          type: 'Trainer',
-          password: this.password,
-        };
-        this.userService
-          .postUser(newUser)
-          .pipe(
-            tap((data) => {
-              console.log('User added:', data);
-            }),
-            catchError((error) => {
-            console.error('Error adding user:', error);
-            return of(null); 
-            })
-          )
-        .subscribe();
-      });
     }
+
+    const newUser = new User(this.name, this.email, this.password, "Trainer"); // Creating a new User using the model
+    this.userService
+      .postUser(newUser)
+      .pipe(
+        tap((data) => {
+          console.log('User added:', data);
+        }),
+        catchError((error) => {
+          console.error('Error adding user:', error);
+          return of(null);
+        })
+      )
+      .subscribe();
   }
-  
-  goToLogin(){
+
+  goToLogin() {
     this.router.navigate(['/login']);
   }
 
   validateName(): boolean {
-    //Verifica que el nom no estigui buit
     if (!this.name) {
       this.errorMessage = 'Name cannot be empty';
       return false;
     }
-
-    //Verifica que el nom no excedeixi a els 50 caracters
     if (/^\d+$/.test(this.name)) {
       this.errorMessage = 'Name cannot contain only numbers';
       return false;
     }
-
-    //Verifica que el nom no excedixi els 50 caracters
     if (this.name.length > 50) {
       this.errorMessage = 'Name cannot exceed 50 characters';
       return false;
     }
-
     return true;
   }
 
