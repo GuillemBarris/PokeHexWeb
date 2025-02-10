@@ -25,3 +25,10 @@ Create Table Pokemon (
 	speed numeric(3) Not Null,
 	Primary key (name)
 )
+
+Create Table Games (
+	id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	name nvarchar(50) Not Null,
+	user_id varchar(50) Not Null,
+	Foreign Key (user_id) REFERENCES Users(email)
+)
