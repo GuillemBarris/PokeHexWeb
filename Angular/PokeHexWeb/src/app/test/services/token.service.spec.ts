@@ -38,13 +38,13 @@ describe('Token', () => {
 
   it('should navigate to login if authToken is not present', () => {
     spyOn(router, 'navigate');
-
-    spyOn(localStorage, 'authToken').and.returnValue(null);
-
+  
+    spyOn(localStorage, 'getItem').withArgs('authToken').and.returnValue(null);
+  
     token.TokenPresent();
 
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
-});
+  });
 
   
 });
