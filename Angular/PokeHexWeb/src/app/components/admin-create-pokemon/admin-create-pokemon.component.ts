@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
 import { catchError, of, tap } from 'rxjs';
 import { Token } from '../../services/token.service';
+import { IPokemon } from "../../interfaces/IPokemon"; // Import the IPokemon interface
+import { Pokemon } from "../../models/Pokemon"; // Import the Pokemon class
 
 @Component({
   selector: 'app-admin-create-pokemon',
@@ -17,7 +19,7 @@ export class AdminCreatePokemonComponent {
 
   constructor(private pokemonService: PokemonService, private router: Router, private token: Token) {}
 
-  pokemon: any[] = [{}];
+  pokemon: IPokemon[] = []; 
   pokemonName: string = '';
   generation: number = 1;
   category: string = '';
@@ -31,9 +33,10 @@ export class AdminCreatePokemonComponent {
 
   errorMessage: string | null = null;
   
-  ngOnInit(){
-    this.token.TokenPresent()
+  ngOnInit() {
+    this.token.TokenPresent();
   }
+
   validPokemonName(): boolean {
     const trimmedPokemonName = this.pokemonName.trim();
 
@@ -54,6 +57,7 @@ export class AdminCreatePokemonComponent {
 
     return true;
   }
+
   validPokemonGeneration(): boolean {
     if (this.generation <= 0) {
         this.errorMessage = 'Worng generation. Generation must be greater than 0';
@@ -121,7 +125,7 @@ validPokemonSpAttack(): boolean {
 
 validPokemonSpDefense(): boolean {
     if (this.spDefense < 0 || this.spDefense > 255) {
-        this.errorMessage = 'Worng SpDefense. SpDefense must be between 0 and 255';
+        this.errorMessage = 'Wrong SpDefense. SpDefense must be between 0 and 255';
         return false;
     }
     return true;
@@ -138,21 +142,22 @@ validPokemonSpeed(): boolean {
 createPokemon(): void {
     if (!this.validPokemonName() || !this.validPokemonGeneration() || !this.validPokemonCategory() || !this.validPokemonPs() || !this.validPokemonAttack() || !this.validPokemonDefense() || !this.validPokemonSpAttack() || !this.validPokemonSpDefense() || !this.validPokemonSpeed()) {
         return;
-    } else if  (this.validPokemonName() == false || this.validPokemonGeneration() == false || this.validPokemonCategory() == false || this.validPokemonPs() == false || this.validPokemonAttack() == false || this.validPokemonDefense() == false || this.validPokemonSpAttack() == false || this.validPokemonSpDefense() == false || this.validPokemonSpeed() == false) {
+    } else if (this.validPokemonName() == false || this.validPokemonGeneration() == false || this.validPokemonCategory() == false || this.validPokemonPs() == false || this.validPokemonAttack() == false || this.validPokemonDefense() == false || this.validPokemonSpAttack() == false || this.validPokemonSpDefense() == false || this.validPokemonSpeed() == false) {
         return;
     } else if (this.validPokemonName() == true && this.validPokemonGeneration() == true && this.validPokemonCategory() == true && this.validPokemonPs() == true && this.validPokemonAttack() == true && this.validPokemonDefense() == true && this.validPokemonSpAttack() == true && this.validPokemonSpDefense() == true && this.validPokemonSpeed() == true) {
       this.errorMessage = "The pokemon has been created";
-      const newPokemon = {
-        name: this.pokemonName,
-        generation: this.generation,
-        category: this.category,
-        ps: this.ps,
-        attack: this.attack,
-        defense: this.defense,
-        spAttack: this.spAttack,
-        spDefense: this.spDefense,
-        speed: this.speed,
-      };
+      const newPokemon = new Pokemon(  
+        this.pokemonName,
+        this.generation,
+        this.category,
+        this.ps,
+        this.attack,
+        this.defense,
+        this.spAttack,
+        this.spDefense,
+        this.speed
+      );
+
       this.pokemonService
         .postPokemon(newPokemon)
         .pipe(
@@ -166,8 +171,6 @@ createPokemon(): void {
           })
         )
         .subscribe();
-
     }
 }
-
 }
