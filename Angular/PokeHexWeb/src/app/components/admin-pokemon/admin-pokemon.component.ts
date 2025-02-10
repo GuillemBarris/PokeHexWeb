@@ -3,6 +3,7 @@ import { PokemonService } from '../../services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of, tap } from 'rxjs';
 import { Token } from '../../services/token.service';
+import { IPokemon } from '../../interfaces/IPokemon';
 
 @Component({
   selector: 'app-admin-pokemon',
@@ -13,7 +14,7 @@ import { Token } from '../../services/token.service';
 })
 export class AdminPokemonComponent {
 
-  pokemons: any[] = [];
+  pokemons: IPokemon[] = [];
   number: number = 0;
   offset: number = 0;
   limit: number = 0;
