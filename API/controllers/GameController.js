@@ -2,9 +2,9 @@ import sql from "mssql";
 import config from "../config/dbConfig.js";
 
 export const GetGameByUserId = async(req, res) => {
-    const {user_id} = req.body
 
     try {
+        const {user_id} = req.params
         let pool = await sql.connect(config);
         let result = await pool
         .request()
