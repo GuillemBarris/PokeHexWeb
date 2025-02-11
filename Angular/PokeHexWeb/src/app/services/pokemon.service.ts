@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, of } from "rxjs";
 
@@ -13,7 +13,12 @@ export class PokemonService {
     constructor(private http: HttpClient) { }
 
     postPokemon(pokemon: any) {
-        return this.http.post<any>(`${this.Url}/createPokemon/`, pokemon).pipe(
+        const token = localStorage.getItem('authToken'); 
+        const headers = new HttpHeaders({
+
+            'authorization': `Beare ${token}`,
+        });
+        return this.http.post<any>(`${this.Url}/createPokemon/`, pokemon, {headers}).pipe(
             catchError((err) => {
                 console.error('Error adding pokemon:', err);
                 return of(null)
@@ -22,12 +27,19 @@ export class PokemonService {
     }
 
     getPokemons(number: number) {
-        return this.http.get<any>(`${this.Url}/getPokemons/${number}`).pipe(
+       
+        const token = localStorage.getItem('authToken'); 
+        const headers = new HttpHeaders({
+
+            'authorization': `Beare ${token}`,
+        });
+
+        return this.http.get<any>(`${this.Url}/getPokemons/${number}`, { headers }).pipe(
             catchError((err) => {
                 console.error('Error getting pokemons:', err);
-                return of(null)
+                return of(null); 
             })
-        )
+        );
     }
 
 
