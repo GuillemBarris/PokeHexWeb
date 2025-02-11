@@ -22,4 +22,20 @@ describe('DatabaseService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should get games by email using GET request', () => {
+    const mockEmail = 'test@example.com';
+    const mockResponse = [{ id: 1, name: 'Game 1', user_id: 'test@example.com'}, { id: 2, name: 'Game 2', user_id: 'test@example.com' }];
+
+    service.getGames(mockEmail).subscribe(games => {
+      expect(games).toEqual(mockResponse);
+    });
+
+
+    const req = httpMock.expectOne(`${service['Url']}/GetGameByUserId/${mockEmail}`);
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockResponse);
+  });
+
 });
