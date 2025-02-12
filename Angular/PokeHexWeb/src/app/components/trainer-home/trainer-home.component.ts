@@ -5,11 +5,12 @@ import { catchError, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IGame } from '../../interfaces/IGame';
 import { Game } from '../../models/Game';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-trainer-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './trainer-home.component.html',
   styleUrl: './trainer-home.component.css',
 })
@@ -34,24 +35,28 @@ export class TrainerHomeComponent {
     }
   }
 
-  createNewGame(){
-    if(this.name = ''){
+  createNewGame() {
+    if (!this.name || this.name.trim() === '') {
+      console.error('The game name cannot be empty.');
       return;
-    } else {
-      if (this.user_id){
-        const newGame = new Game(this.name, this.user_id)
-        this.gameService.postGame(newGame)
-        .pipe(
-          tap((data) => {
-            console.log('Game adedd:', data);
-          }),
-          catchError((error) => {
-            console.error('Error adding Game:', error);
-            return of(null);
-          })
-        ).subscribe()
-      }
-      }
     }
+  
+    if (!this.user_id) {
+      console.error('The user_id is not defined.');
+      return;
+    }
+  
+    const newGame = new Game(this.name, this.user_id);
+  
+    this.gameService.postGame(newGame)
+      .pipe(
+        tap((data) => {
+          console.log('Game added:', data);
+        }),
+        catchError((error) => {
+          console.error('Error adding the game:', error);
+          return of(null);
+        })
+      ).subscribe();
   }
-
+}
