@@ -34,6 +34,7 @@ export class LoginComponent {
         tap((data) => {
           console.log('User logged in:', data);
           this.token.saveToken(data);
+          localStorage.setItem('email', this.email);
            if(data.type == 'Admin') {
             this.router.navigate(['/admin-home']);
            } else if(data.type == 'Trainer') {
