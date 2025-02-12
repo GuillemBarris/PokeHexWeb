@@ -7,12 +7,32 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 describe('AdminPokemonComponent', () => {
   let component: AdminPokemonComponent;
   let fixture: ComponentFixture<AdminPokemonComponent>;
-  let pokemonService: jasmine.SpyObj<PokemonService>;
+  let spyObjectPokemonService: jasmine.SpyObj<PokemonService>;
 
   const mockResponse = {
-    pokemons: ['Pikachu', 'Charmander'],
-    offset: 31,
-    limit: 61,
+    limit: 30,
+    offset: 0,
+    pokemons:[
+    {
+    attack: 92,
+    category: "abomasnow",
+    defense: 75,
+    generation: 4,
+    name: "abomasnow",
+    ps: 90,
+    spAttack: 92,
+    spDefense: 85,
+    speed: 60},
+    {
+    attack: 92,
+    category: "abra",
+    defense: 75,
+    generation: 4,
+    name: "abra",
+    ps: 90,
+    spAttack: 92,
+    spDefense: 85,
+    speed: 60}]
   };
 
   beforeEach(async () => {
@@ -28,9 +48,9 @@ describe('AdminPokemonComponent', () => {
 
     fixture = TestBed.createComponent(AdminPokemonComponent);
     component = fixture.componentInstance;
-    pokemonService = TestBed.inject(PokemonService) as jasmine.SpyObj<PokemonService>;
+    spyObjectPokemonService = TestBed.inject(PokemonService) as jasmine.SpyObj<PokemonService>;
 
-    pokemonService.getPokemons.and.returnValue(of(mockResponse));
+    spyObjectPokemonService.getPokemons.and.returnValue(of(mockResponse));
   });
 
   it('should create', () => {
@@ -38,19 +58,12 @@ describe('AdminPokemonComponent', () => {
   });
 
   it('should load pokemons with a different value of this.number', () => {
-  
 
-    const mockResponse = {
-        pokemons: [{ name: 'Charmander' }, { name: 'Squirtle' }],
-        offset: 0,
-        limit: 31
-    };
-
-    pokemonService.getPokemons.and.returnValue(of(mockResponse));
+    spyObjectPokemonService.getPokemons.and.returnValue(of(mockResponse));
 
     component.ngOnInit();
 
-    expect(pokemonService.getPokemons).toHaveBeenCalledWith(0);
+    expect(spyObjectPokemonService.getPokemons).toHaveBeenCalledWith(0);
     expect(component.pokemons).toEqual(mockResponse.pokemons);
     expect(component.offset).toEqual(mockResponse.offset);
     expect(component.limit).toEqual(mockResponse.limit);
@@ -80,7 +93,7 @@ describe('AdminPokemonComponent', () => {
       limit: 20
     };
   
-    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+    spyObjectPokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
   
     const result = component.incrementNumber();
   
@@ -92,7 +105,7 @@ describe('AdminPokemonComponent', () => {
     const originalNumber = component.number;
     const mockError = new Error('Failed to load Pokémon');
   
-    pokemonService.getPokemons.and.returnValue(throwError(() => mockError));
+    spyObjectPokemonService.getPokemons.and.returnValue(throwError(() => mockError));
   
     const result = component.incrementNumber();
   
@@ -108,7 +121,7 @@ describe('AdminPokemonComponent', () => {
       limit: 20
     };
   
-    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+    spyObjectPokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
   
     component.incrementNumber();
   
@@ -121,7 +134,7 @@ describe('AdminPokemonComponent', () => {
     component.pokemons = [];
   
     const mockError = new Error('Failed to load Pokémons.');
-    pokemonService.getPokemons.and.returnValue(throwError(() => mockError));
+    spyObjectPokemonService.getPokemons.and.returnValue(throwError(() => mockError));
   
     component.incrementNumber();
   
@@ -158,7 +171,7 @@ describe('AdminPokemonComponent', () => {
       limit: 31 
     };
   
-    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+    spyObjectPokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
   
     const result = component.decrementNumber();
   
@@ -171,7 +184,7 @@ describe('AdminPokemonComponent', () => {
     const originalNumber = component.number;
     const mockError = new Error('Failed to load Pokémon');
   
-    pokemonService.getPokemons.and.returnValue(throwError(() => mockError));
+    spyObjectPokemonService.getPokemons.and.returnValue(throwError(() => mockError));
   
     const result = component.decrementNumber();
   
@@ -186,7 +199,7 @@ describe('AdminPokemonComponent', () => {
       limit: 20
     };
   
-    pokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
+    spyObjectPokemonService.getPokemons.and.returnValue(of(mockEmptyResponse));
   
     component.decrementNumber();
   
@@ -199,7 +212,7 @@ describe('AdminPokemonComponent', () => {
     component.pokemons = [];
   
     const mockError = new Error('Failed to load Pokémons.');
-    pokemonService.getPokemons.and.returnValue(throwError(() => mockError));
+    spyObjectPokemonService.getPokemons.and.returnValue(throwError(() => mockError));
   
     component.decrementNumber();
   
