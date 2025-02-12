@@ -3,6 +3,8 @@ import { Token } from '../../services/token.service';
 import { GameService } from '../../services/game.service';
 import { catchError, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { IGame } from '../../interfaces/IGame';
+import { Game } from '../../models/Game';
 
 @Component({
   selector: 'app-trainer-home',
@@ -13,7 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TrainerHomeComponent {
 
-  game: any[] = [];
+  games: IGame[] = []; 
   UserId = localStorage.getItem('email');
 
   constructor(private token: Token, private gameService: GameService) {}
@@ -23,10 +25,11 @@ export class TrainerHomeComponent {
   
     if (this.UserId) {
       this.gameService.getGames(this.UserId).subscribe(games => {
-        this.game = games;
-       
-      })
-     
+
+        this.games = games
+        
+      });
     }
   }
 }
+
