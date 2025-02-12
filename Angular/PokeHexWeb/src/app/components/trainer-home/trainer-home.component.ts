@@ -16,20 +16,42 @@ import { Game } from '../../models/Game';
 export class TrainerHomeComponent {
 
   games: IGame[] = []; 
-  UserId = localStorage.getItem('email');
+  user_id = localStorage.getItem('email');
+  name: string = '';
 
   constructor(private token: Token, private gameService: GameService) {}
 
   ngOnInit() {
     this.token.TokenPresent(); 
   
-    if (this.UserId) {
-      this.gameService.getGames(this.UserId).subscribe(games => {
+    if (this.user_id){
+      this.gameService.getGames(this.user_id).subscribe(games => {
 
         this.games = games
+        
         
       });
     }
   }
-}
+
+  createNewGame(){
+    if(this.name = ''){
+      return;
+    } else {
+      if (this.user_id){
+        const newGame = new Game(this.name, this.user_id)
+        this.gameService.postGame(newGame)
+        .pipe(
+          tap((data) => {
+            console.log('Game adedd:', data);
+          }),
+          catchError((error) => {
+            console.error('Error adding Game:', error);
+            return of(null);
+          })
+        ).subscribe()
+      }
+      }
+    }
+  }
 
