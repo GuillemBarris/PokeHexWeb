@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 export class GameService {
 
    
-    private Url = 'http://172.24.59.209:3000/api/games';
+    private Url = 'http://172.24.59.209:3000/api/v1/games';
 
     constructor(private http: HttpClient, private router:Router) { }
 
