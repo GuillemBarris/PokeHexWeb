@@ -2,3 +2,6 @@
 <li *ngFor="let game of games">
     <a >{{ game.name }}</a>
 </li>
+<p>Game Name </p>
+<input [(ngModel)]="name"/>
+<button type="submit" (click)="createNewGame()">New Game</button>
