@@ -94,4 +94,33 @@ export class GameService {
         })
       );
   }
+
+  deleteGame(gameId: string) {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      authorization: `Bearer ${token}`,
+    });
+    return this.http
+      .delete<any>(`${this.Url}/deleteGame/${gameId}`, { headers })
+      .pipe(
+        catchError((err) => {
+          console.error('Error deleting game:', err);
+
+          if (err.status === 400) {
+            console.error('Error 400: Bad Request');
+          } else if (err.status === 401) {
+            console.error('Error 401: Unauthorized Token');
+            this.router.navigate(['/login']);
+          } else if (err.status === 403) {
+            console.error('Error 403: Forbidden Token');
+            this.router.navigate(['/login']);
+          } else if (err.status === 500) {
+            console.error('Error 500: Internal Server Error');
+          } else {
+            console.error('Error desconocido:', err.status);
+          }
+          return of(null);
+        })
+      );
+  }
 }
