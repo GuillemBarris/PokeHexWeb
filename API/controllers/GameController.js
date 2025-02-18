@@ -65,3 +65,24 @@ export const UpdateGame = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
+export const DeleteGame = async(req, res) => {
+    const {id} = req.params;
+
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool
+        .request()
+        .input("id", sql.VarChar, id)
+        .query("use PokeHexDatabase Delete From Games Where id = @id");
+        if(result.rowsAffected[0] === 1){
+            return res.status(200).json({message: "Game deleted successfully"})
+        } else {
+            return res.status(400).json({message: "Error deleting Game"})
+        }
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
+
