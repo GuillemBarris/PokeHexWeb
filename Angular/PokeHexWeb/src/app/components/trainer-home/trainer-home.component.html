@@ -1,6 +1,6 @@
 <h1>Games</h1>
 <li *ngFor="let game of games">
-    <a >{{ game.name }}</a>
+    <input [(ngModel)]="game.name" />
 </li>
 <p>Game Name </p>
 <input [(ngModel)]="name"/>
