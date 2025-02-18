@@ -39,3 +39,29 @@ export const CreateGame = async(req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const UpdateGame = async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    if (!name) {
+        return res.status(400).json({ message: "Name is required" });
+    }
+
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool
+            .request()
+            .input("id", sql.VarChar, id)
+            .input("name", sql.VarChar, name)
+            .query("use PokeHexDatabase; UPDATE Games SET name = @name WHERE id = @id");
+
+        if (result.rowsAffected[0] === 1) {
+            return res.status(200).json({ message: "Game updated successfully" });
+        } else {
+            return res.status(404).json({ message: "Game not found or no changes made" });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
