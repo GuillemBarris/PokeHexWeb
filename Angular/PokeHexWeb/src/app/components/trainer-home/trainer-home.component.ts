@@ -72,6 +72,10 @@ export class TrainerHomeComponent {
         tap((data) => {
           console.log('Game updated:', data);
         }),
+        catchError((error) => {
+          console.error('Error updating the game:', error);
+          return of(null);
+        })
       ).subscribe();
   }
 }
