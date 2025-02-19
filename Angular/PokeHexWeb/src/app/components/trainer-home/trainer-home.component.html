@@ -1,7 +1,10 @@
 <h1>Games</h1>
-<li *ngFor="let game of games">
+<ul>
+  <li *ngFor="let game of games">
     <input [(ngModel)]="game.name" />
-</li>
-<p>Game Name </p>
-<input [(ngModel)]="name"/>
+    <button type="submit" (click)="updateGame(game)">Update</button>
+  </li>
+</ul>
+<p>Game Name</p>
+<input [(ngModel)]="name" />
 <button type="submit" (click)="createNewGame()">New Game</button>

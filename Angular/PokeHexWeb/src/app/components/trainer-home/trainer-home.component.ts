@@ -29,6 +29,7 @@ export class TrainerHomeComponent {
       this.gameService.getGames(this.user_id).subscribe(games => {
 
         this.games = games
+
         
         
       });
@@ -46,7 +47,7 @@ export class TrainerHomeComponent {
       return;
     }
   
-    const newGame = new Game(this.name, this.user_id);
+    const newGame = new Game(undefined, this.name, this.user_id);
   
     this.gameService.postGame(newGame)
       .pipe(
@@ -57,6 +58,20 @@ export class TrainerHomeComponent {
           console.error('Error adding the game:', error);
           return of(null);
         })
+      ).subscribe();
+  }
+
+  updateGame( game: Game) {
+    if (!game.id) {
+      console.error('The game ID is not defined.');
+      return;
+    }
+  
+    this.gameService.putGame(game.id, game)
+      .pipe(
+        tap((data) => {
+          console.log('Game updated:', data);
+        }),
       ).subscribe();
   }
 }
