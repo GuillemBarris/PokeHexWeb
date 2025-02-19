@@ -68,4 +68,18 @@ describe('TrainerHomeComponent', () => {
     expect(console.error).toHaveBeenCalledWith('The game ID is not defined.');
     expect(gameService.putGame).not.toHaveBeenCalled();
   });
+  it('should delete the game correctly', () => {
+    const mockGameId = '1';
+    const mockResponse = { id: '1', name: 'Pokemon', user_id: '1' };
+  
+    spyOn(gameService, 'deleteGame').and.returnValue(of(mockResponse));
+    spyOn(console, 'log');
+    spyOn(console, 'error');
+  
+    component.deleteGame(mockGameId);
+  
+    expect(gameService.deleteGame).toHaveBeenCalledWith(mockGameId);
+    expect(console.log).toHaveBeenCalledWith('Game deleted:', mockResponse);
+    expect(console.error).not.toHaveBeenCalled();
+  });
 });
