@@ -40,4 +40,15 @@ describe('TrainerHomeComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Game updated:', mockResponse);
     expect(console.error).not.toHaveBeenCalled();
   });
+  it('should show an error if the game ID is not defined', () => {
+    const mockGame = { id: undefined, name: 'Super Mario', user_id: '1' };
+
+    spyOn(console, 'error');
+    spyOn(gameService, 'putGame');
+
+    component.updateGame(mockGame);
+
+    expect(console.error).toHaveBeenCalledWith('The game ID is not defined.');
+    expect(gameService.putGame).not.toHaveBeenCalled();
+  });
 });
