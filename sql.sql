@@ -32,3 +32,10 @@ Create Table Games (
 	user_id varchar(50) Not Null,
 	Foreign Key (user_id) REFERENCES Users(email)
 )
+
+Create Table Moves (
+	name Varchar(20) Not Null,
+	category Varchar(20) Not Null,
+	type Varchar(20) Not Null,
+	power numeric(3) Not Null,
+)
