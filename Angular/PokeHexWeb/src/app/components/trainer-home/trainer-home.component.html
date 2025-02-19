@@ -3,6 +3,7 @@
   <li *ngFor="let game of games">
     <input [(ngModel)]="game.name" />
     <button type="submit" (click)="updateGame(game)">Update</button>
+    <button type="submit" (click)="deleteGame(game)">Delete</button>
   </li>
 </ul>
 <p>Game Name</p>

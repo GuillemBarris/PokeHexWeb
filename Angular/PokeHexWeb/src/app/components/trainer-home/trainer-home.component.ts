@@ -78,4 +78,21 @@ export class TrainerHomeComponent {
         })
       ).subscribe();
   }
+
+  deleteGame( game: Game) {
+    if (!game.id) {
+      console.error('The game ID is not defined.');
+      return;
+    }
+    this.gameService.deleteGame(game.id)
+      .pipe(
+        tap((data) => {
+          console.log('Game deleted:', data);
+        }),
+        catchError((error) => {
+          console.error('Error deleting the game:', error);
+          return of(null);
+        })
+      ).subscribe();
+  }
 }
