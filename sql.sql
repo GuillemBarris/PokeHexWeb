@@ -38,4 +38,5 @@ Create Table Moves (
 	category Varchar(20) Not Null,
 	type Varchar(20) Not Null,
 	power numeric(3) Not Null,
+	Primary key (name)
 )
