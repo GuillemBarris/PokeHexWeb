@@ -53,6 +53,15 @@ export class AdminCreateMoveComponent {
     return true;
   }
 
+  validType(): boolean {
+    if (this.type === '') {
+      this.errorMessage = 'Worng Move type. Move type cannot be empty';
+      return false;
+    }
+
+    return true;
+  }
+
   validPower(): boolean {
     if (this.power < 0 || this.power > 250) {
       this.errorMessage = 'Worng Move power. Move power must be between 0 and 100';
