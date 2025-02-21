@@ -44,6 +44,15 @@ export class AdminCreateMoveComponent {
     return true;
   }
 
+  validCategory(): boolean {  
+    if (this.category === '') {
+      this.errorMessage = 'Worng Move category. Move category cannot be empty';
+      return false;
+    }
+
+    return true;
+  }
+
   validPower(): boolean {
     if (this.power < 0 || this.power > 250) {
       this.errorMessage = 'Worng Move power. Move power must be between 0 and 100';
@@ -52,4 +61,5 @@ export class AdminCreateMoveComponent {
 
     return true;
   }
+  
 }
