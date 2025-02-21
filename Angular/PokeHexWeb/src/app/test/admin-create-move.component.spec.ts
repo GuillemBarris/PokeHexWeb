@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminCreateMoveComponent } from './admin-create-move.component';
+import { AdminCreateMoveComponent } from '../components/admin-create-move/admin-create-move.component';
 
 describe('AdminCreateMoveComponent', () => {
   let component: AdminCreateMoveComponent;
