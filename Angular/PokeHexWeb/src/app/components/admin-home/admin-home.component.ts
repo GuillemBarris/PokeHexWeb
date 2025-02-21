@@ -23,5 +23,8 @@ export class AdminHomeComponent {
   getToViewAndEditPokemon() {
     this.router.navigate(['/admin-pokemon']);
   }
+  getToCreateMove() {
+    this.router.navigate(['/admin-create-move']);
+  }
 
 }
