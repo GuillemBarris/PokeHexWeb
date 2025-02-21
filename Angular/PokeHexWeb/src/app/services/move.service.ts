@@ -7,7 +7,7 @@ export class MoveService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  createMove(move: any) {
+  postMove(move: any) {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       authorization: `Beare ${token}`,
