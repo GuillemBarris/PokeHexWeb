@@ -28,7 +28,7 @@ describe('AdminHomeComponent', () => {
   
     const buttons = fixture.nativeElement.querySelectorAll('button');
     const loginButton = buttons[0];
-    const event = new MouseEvent('dblclick');
+    const event = new MouseEvent('click');
     loginButton.dispatchEvent(event);
   
     fixture.detectChanges();
