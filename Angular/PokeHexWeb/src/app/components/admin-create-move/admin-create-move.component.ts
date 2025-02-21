@@ -43,4 +43,13 @@ export class AdminCreateMoveComponent {
 
     return true;
   }
+
+  validPower(): boolean {
+    if (this.power < 0 || this.power > 250) {
+      this.errorMessage = 'Worng Move power. Move power must be between 0 and 100';
+      return false;
+    }
+
+    return true;
+  }
 }
