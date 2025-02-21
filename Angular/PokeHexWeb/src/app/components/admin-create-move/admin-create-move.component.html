@@ -34,4 +34,5 @@
 <label>Power</label>
 <input type="number" maxlength="3" [(ngModel)]="power">
 <br>
-<button>Create Move</button>
+<button (click)="createMove()">Create Move</button>
+<p>{{errorMessage}}</p>
