@@ -1,7 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class MoveService {
   private Url = 'http://172.24.59.209:3000/api/v1/moves';
 
