@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-admin-create-move',
@@ -9,11 +10,19 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './admin-create-move.component.css'
 })
 export class AdminCreateMoveComponent {
+
+  constructor(private token: Token) { }
+
   moveName: string = '';
   category: string = '';
   type: string = '';
   power: number = 0;
   errorMessage: string | null = null;
+
+  ngOnInit() {
+    this.token.TokenPresent();
+  }
+
   validMoveName(): boolean {
     const trimmedMoveName = this.moveName.trim();
 
