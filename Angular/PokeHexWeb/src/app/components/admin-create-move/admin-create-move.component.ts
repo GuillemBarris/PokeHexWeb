@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Token } from '../../services/token.service';
+import { MoveService } from '../../services/move.service';
+import { catchError, of, tap } from 'rxjs';
+import { Move } from '../../models/Move';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-create-move',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './admin-create-move.component.html',
   styleUrl: './admin-create-move.component.css'
 })
 export class AdminCreateMoveComponent {
 
-  constructor(private token: Token) { }
+  constructor(private token: Token, private moveService: MoveService) { }
 
+  moves: Move[] = [];
   moveName: string = '';
   category: string = '';
   type: string = '';
@@ -22,6 +27,36 @@ export class AdminCreateMoveComponent {
   ngOnInit() {
     this.token.TokenPresent();
   }
+
+createMove(): void {
+  if (!this.validMoveName() || !this.validCategory() || !this.validType() || !this.validPower()) {
+    return;
+  } else if (this.validMoveName() == false || this.validCategory() == false || this.validType() == false || this.validPower() == false) {
+    return;
+  } else if (this.validMoveName() == true && this.validCategory() == true && this.validType() == true && this.validPower() == true) {
+    this.errorMessage = "The move has been created";
+    const newMove = {
+      name: this.moveName,
+      category: this.category,
+      type: this.type,
+      power: this.power
+    };
+
+    this.moveService
+      .postMove(newMove)
+      .pipe(
+        tap((response) => {
+          console.log('Move added:', response);
+          this.moves.push(response);
+        }),
+        catchError((error) => {
+          console.error('Error adding move:', error);
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+}
 
   validMoveName(): boolean {
     const trimmedMoveName = this.moveName.trim();
