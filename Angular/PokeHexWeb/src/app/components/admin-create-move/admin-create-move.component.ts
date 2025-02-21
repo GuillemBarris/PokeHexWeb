@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminCreateMoveComponent {
   moveName: string = '';
+  Category: string = '';
   errorMessage: string | null = null;
   validMoveName(): boolean {
     const trimmedMoveName = this.moveName.trim();
