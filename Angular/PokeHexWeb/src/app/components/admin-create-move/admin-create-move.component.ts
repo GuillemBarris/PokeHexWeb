@@ -12,6 +12,7 @@ export class AdminCreateMoveComponent {
   moveName: string = '';
   category: string = '';
   type: string = '';
+  power: number = 0;
   errorMessage: string | null = null;
   validMoveName(): boolean {
     const trimmedMoveName = this.moveName.trim();
