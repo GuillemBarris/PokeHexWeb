@@ -1,12 +1,18 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const config = {
-    user: 'sa',
-    password: 'G5m1i128',
-    server: '172.24.59.209',
-    database: 'PokeHexDatabase',
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_DATABASE,
     options: {
-        encrypt: true, 
-        trustServerCertificate: true 
+        encrypt: process.env.DB_ENCRYPT === 'true',
+        trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE === 'true'
     }
 };
+
+console.log(config);
 
 export default config;
