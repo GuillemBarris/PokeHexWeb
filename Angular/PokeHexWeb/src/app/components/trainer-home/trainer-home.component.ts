@@ -7,6 +7,8 @@ import { IGame } from '../../interfaces/IGame';
 import { Game } from '../../models/Game';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PokemonGameService } from '../../services/pokemongame.servie';
+import { PokemonGame } from '../../models/PokemonGame';
 
 @Component({
   selector: 'app-trainer-home',
@@ -21,7 +23,7 @@ export class TrainerHomeComponent {
   user_id = localStorage.getItem('email');
   name: string = '';
 
-  constructor(private token: Token, private gameService: GameService, private router: Router) {}
+  constructor(private token: Token, private gameService: GameService, private pokemonGameService: PokemonGameService, private router: Router) {}
 
   ngOnInit() {
     this.token.TokenPresent(); 
@@ -54,12 +56,15 @@ export class TrainerHomeComponent {
       .pipe(
         tap((data) => {
           console.log('Game added:', data);
+          this.createPokemonsGame(data.id);
+          
         }),
         catchError((error) => {
           console.error('Error adding the game:', error);
           return of(null);
         })
       ).subscribe();
+     
   }
 
   updateGame( game: Game) {
@@ -99,6 +104,30 @@ export class TrainerHomeComponent {
 
   goToGame(game: Game) {
     this.router.navigate(['/trainer-pokemon-game', game.id]);
+}
+
+createPokemonsGame(gameId: string){
+  if (!gameId) {
+    console.error('The game ID is not defined.');
+    return;
+  }else{
+    for (let i = 1; i <= 32; i++) {
+      for (let j = 1; j <= 30; j++) {
+        const newPokemonGame =  new PokemonGame(undefined, undefined, gameId, i, j);
+        this.pokemonGameService.postPokemonGame(newPokemonGame)
+          .pipe(
+            tap((data) => {
+              console.log('Pokemon added:', data);
+            }),
+            catchError((error) => {
+              console.error('Error adding the pokemon:', error);
+              return of(null);
+            })
+          ).subscribe();
+      }
+    }
+  }
+
 }
 
 }
