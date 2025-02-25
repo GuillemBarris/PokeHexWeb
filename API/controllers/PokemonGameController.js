@@ -45,3 +45,15 @@ export const updatePokemonGame = async (req, res) => {
         res.status(500).send(err.message);
     }
 };
+
+export const deletePokemonGame = async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request()
+            .input('id', sql.Int, req.params.id)
+            .query("DELETE FROM PokemonGames WHERE id = @id");
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
