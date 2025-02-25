@@ -45,6 +45,7 @@ Create Table PokemonGame (
 	pokemon_id Varchar(15) Not Null,
 	game_id UNIQUEIDENTIFIER Not Null,
 	box_name VARCHAR(50) NOT NULL, 
+	box_number numeric NOT NULL, 
     location_in_box numeric NOT NULL,
 	Foreign Key (pokemon_id) REFERENCES Pokemon(name),
 	Foreign Key (game_id) REFERENCES Games(id)
