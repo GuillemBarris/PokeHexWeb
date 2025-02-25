@@ -11,7 +11,15 @@ export const authenticateToken = (req, res, next) => {
     try {
         
         const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = payload; 
+        req.user = payload;
+
+        const currentTime = Math.floor(Date.now() / 1000);
+        const timeLeft = payload.exp - currentTime;
+        if (timeLeft <= 300) {
+            const newToken = jwt.sign({ user: payload.user }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            res.setHeader('Authorization', `Bearer ${newToken}`);
+        }
+
         next(); 
     } catch (error) {
         if (error.name === 'TokenExpiredError') {
