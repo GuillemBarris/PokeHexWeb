@@ -43,6 +43,7 @@ Create Table Moves (
 Create Table PokemonGame (
 	id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
 	pokemon_id Varchar(15) Not Null,
+	pokemon_id Varchar(15) 
 	game_id UNIQUEIDENTIFIER Not Null,
 	box_name VARCHAR(50) NOT NULL, 
 	pokemon_id Varchar(15),
