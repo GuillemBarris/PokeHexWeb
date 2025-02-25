@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { IGame } from '../../interfaces/IGame';
 import { Game } from '../../models/Game';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trainer-home',
@@ -20,7 +21,7 @@ export class TrainerHomeComponent {
   user_id = localStorage.getItem('email');
   name: string = '';
 
-  constructor(private token: Token, private gameService: GameService) {}
+  constructor(private token: Token, private gameService: GameService, private router: Router) {}
 
   ngOnInit() {
     this.token.TokenPresent(); 
@@ -95,4 +96,9 @@ export class TrainerHomeComponent {
         })
       ).subscribe();
   }
+
+  goToGame(game: Game) {
+    this.router.navigate(['/trainer-pokemon-game', game.id]);
+}
+
 }
