@@ -15,3 +15,18 @@ export const getPokemonGameByIdGame = async (req, res) => {
     }
 };
 
+export const createPokemonGame = async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request()
+            .input('pokemon_id', sql.Int, req.body.pokemon_id)
+            .input('game_id', sql.Int, req.body.game_id)
+            .input('box_name', sql.NVarChar, req.body.box_name)
+            .input('location_in_box', sql.NVarChar, req.body.location_in_box)
+            .query("INSERT INTO PokemonGames (pokemon_id, game_id, box_name, location_in_box) VALUES (@pokemon_id, @game_id, @box_name, @location_in_box)");
+        res.status(201).send(result);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
