@@ -29,9 +29,11 @@ export const CreateGame = async(req, res) => {
         .request()
         .input("name", sql.VarChar, name)
         .input("user_id", sql.VarChar, user_id)
-        .query("use PokeHexDatabase Insert Into Games (name, user_id) values (@name, @user_id)");
-        if(result.rowsAffected[0] === 1){
-            const createdId = result.recordset[0].id;
+        .query("use PokeHexDatabase; INSERT INTO Games (name, user_id) OUTPUT INSERTED.id VALUES (@name, @user_id)");
+
+        if(result.rowsAffected && result.rowsAffected[0] === 1){
+            const createdId = result.recordset && result.recordset[0] ? result.recordset[0].id : null;
+            console.log('createdId:', createdId);
             return res.status(201).json({message: "Game created successfully", id: createdId});
         } else {
             return res.status(400).json({message: "Error creating Game"});
