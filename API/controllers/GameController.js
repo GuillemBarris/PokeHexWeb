@@ -1,6 +1,7 @@
 import sql from "mssql";
 import config from "../config/dbConfig.js";
 
+
 export const GetGameByUserId = async(req, res) => {
 
     try {
@@ -30,16 +31,16 @@ export const CreateGame = async(req, res) => {
         .input("user_id", sql.VarChar, user_id)
         .query("use PokeHexDatabase Insert Into Games (name, user_id) values (@name, @user_id)");
         if(result.rowsAffected[0] === 1){
-            return res.status(201).json({message: "Game created succesfully"})
+            const createdId = result.recordset[0].id;
+            return res.status(201).json({message: "Game created successfully", id: createdId});
         } else {
-            return res.status(400).json({message: "Error creating Game"})
+            return res.status(400).json({message: "Error creating Game"});
         }
 
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
 }
-
 export const UpdateGame = async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
