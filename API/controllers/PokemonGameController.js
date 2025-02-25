@@ -22,8 +22,8 @@ export const createPokemonGame = async (req, res) => {
             .input('pokemon_id', sql.VarChar, req.body.pokemon_id)
             .input('game_id', sql.VarChar, req.body.game_id)
             .input('box_number', sql.Int, req.body.box_number)
-            .input('location_in_box', sql.NVarChar, req.body.location_in_box)
-            .query("INSERT INTO PokemonGames (pokemon_id, game_id, box_number, location_in_box) VALUES (@pokemon_id, @game_id, @box_number, @location_in_box)");
+            .input('location_in_box', sql.Int, req.body.location_in_box)
+            .query("use PokeHexDatabase; INSERT INTO PokemonGame (pokemon_id, game_id, box_number, location_in_box) VALUES (@pokemon_id, @game_id, @box_number, @location_in_box)");
         res.status(201).send(result);
     } catch (err) {
         res.status(500).send(err.message);
