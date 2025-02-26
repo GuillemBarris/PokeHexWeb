@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { TrainerPokemonGameComponent } from '../components/trainer-pokemon-game/trainer-pokemon-game.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('TrainerPokemonGameComponent', () => {
   let component: TrainerPokemonGameComponent;
@@ -11,7 +13,7 @@ describe('TrainerPokemonGameComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TrainerPokemonGameComponent],
-      providers: [
+      providers: [ provideHttpClient(), provideHttpClientTesting(),
         {
           provide: ActivatedRoute,
           useValue: {
