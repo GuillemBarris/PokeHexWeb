@@ -16,7 +16,6 @@ export class TrainerPokemonGameComponent implements OnInit {
   gameId: string | null = null;
   pokemonGame: PokemonGame[] = [];
   boxNumber: number = 1;
-
   constructor(private route: ActivatedRoute, private token: Token, private pokemonGameService: PokemonGameService) {}
 
   ngOnInit(): void {
@@ -42,7 +41,16 @@ export class TrainerPokemonGameComponent implements OnInit {
         });
       }
     } else {
-      console.warn('Maximum box number reached');
+    }
+  }
+  decrementBoxNumber(): void {
+    if (this.boxNumber > 1) {
+      this.boxNumber--;
+      if (this.gameId) {
+        this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
+          this.pokemonGame = pg;
+        });
+      }
     }
   }
 }
