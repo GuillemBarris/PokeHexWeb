@@ -2,6 +2,7 @@
 <div *ngFor="let pokemonGames of pokemonGame">
     <p>{{ pokemonGames.pokemon_id }}</p>
 </div>
-<button (click)="incrementBoxNumber()"><--</button>
-<button (click)="decrementBoxNumber()">--></button>
+<button (click)="decrementBoxNumber()"><--</button>
+<button (click)="incrementBoxNumber()">--></button>
+
 <p>{{errorMessage}}</p>
