@@ -3,13 +3,15 @@ import config from "../config/dbConfig.js";
 
 
 
-export const getPokemonGameByIdGame = async (req, res) => {
+export const getPokemonGameByIdGameAndBoxNumber = async (req, res) => {
+    let { game_id, box_number } = req.params;
     try {
         let pool = await sql.connect(config);
         let result = await pool.request()
-            .input('game_id', sql.Int, req.params.id)
-            .query("SELECT * FROM PokemonGames WHERE game_id = @game_id");
-        res.json(result.recordset[0]);
+            .input('game_id', sql.VarChar, game_id)
+            .input('box_number', sql.Int, box_number)
+            .query("SELECT * FROM PokemonGame WHERE game_id = @game_id AND box_number = @box_number ORDER BY location_in_box ASC");
+        res.json(result.recordset);
     } catch (err) {
         res.status(500).send(err.message);
     }
