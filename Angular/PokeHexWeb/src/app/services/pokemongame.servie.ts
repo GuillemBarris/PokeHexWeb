@@ -48,7 +48,7 @@ export class PokemonGameService {
       authorization: `Bearer ${token}`,
     });
     return this.http
-      .get<any>(`${this.Url}/getPokemonGame${gameId}?boxNumber=${boxNumber}`, { headers })
+      .get<any>(`${this.Url}/getPokemonGameByIdGameAndBoxNumber/${gameId}/${boxNumber}/`, { headers })
       .pipe(
         catchError((err) => {
           console.error('Error fetching pokemon game:', err);
