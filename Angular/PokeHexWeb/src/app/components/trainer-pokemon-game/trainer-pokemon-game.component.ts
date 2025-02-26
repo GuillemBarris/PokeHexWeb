@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Token } from '../../services/token.service';
 
 @Component({
   selector: 'app-trainer-pokemon-game',
@@ -12,9 +13,10 @@ import { ActivatedRoute } from '@angular/router';
 export class TrainerPokemonGameComponent implements OnInit {
   gameId: string | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private token: Token) {}
 
   ngOnInit(): void {
+    this.token.TokenPresent(); 
     this.route.paramMap.subscribe(params => {
       this.gameId = params.get('gameId');
     });
