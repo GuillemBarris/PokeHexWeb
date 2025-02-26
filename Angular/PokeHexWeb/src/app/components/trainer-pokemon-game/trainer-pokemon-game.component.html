@@ -1,1 +1,4 @@
-<p>trainer-pokemon-game works!</p>
+<h2>Caixa: {{ pokemonGame[0].box_number }}</h2>
+<div *ngFor="let pokemonGames of pokemonGame">
+    <p>{{ pokemonGames.pokemon_id }}</p>
+</div>
