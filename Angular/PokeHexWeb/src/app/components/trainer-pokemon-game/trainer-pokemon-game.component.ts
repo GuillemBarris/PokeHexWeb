@@ -15,6 +15,7 @@ import { PokemonGame } from '../../models/PokemonGame';
 export class TrainerPokemonGameComponent implements OnInit {
   gameId: string | null = null;
   pokemonGame: PokemonGame[] = [];
+  boxNumber: number = 1;
 
   constructor(private route: ActivatedRoute, private token: Token, private pokemonGameService: PokemonGameService) {}
 
@@ -23,7 +24,7 @@ export class TrainerPokemonGameComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.gameId = params.get('gameId');
       if (this.gameId) {
-        this.pokemonGameService.getPokemonGame(this.gameId, 1).subscribe(pg => {
+        this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
           this.pokemonGame = pg;
         } );
       } else {
@@ -31,5 +32,13 @@ export class TrainerPokemonGameComponent implements OnInit {
       }
     });
     
+  }
+  incrementBoxNumber(): void {
+    this.boxNumber++;
+    if (this.gameId) {
+      this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
+        this.pokemonGame = pg;
+      });
+    }
   }
 }
