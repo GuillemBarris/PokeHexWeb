@@ -34,11 +34,15 @@ export class TrainerPokemonGameComponent implements OnInit {
     
   }
   incrementBoxNumber(): void {
-    this.boxNumber++;
-    if (this.gameId) {
-      this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
-        this.pokemonGame = pg;
-      });
+    if (this.boxNumber < 32) {
+      this.boxNumber++;
+      if (this.gameId) {
+        this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
+          this.pokemonGame = pg;
+        });
+      }
+    } else {
+      console.warn('Maximum box number reached');
     }
   }
 }
