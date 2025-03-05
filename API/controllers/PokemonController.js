@@ -45,3 +45,15 @@ export const GetPokemon = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const GetAllPokemon = async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("use PokeHexDatabase SELECT name FROM Pokemon Order By name");
+        return res.status(200).json({
+            pokemons: result.recordset
+        });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
