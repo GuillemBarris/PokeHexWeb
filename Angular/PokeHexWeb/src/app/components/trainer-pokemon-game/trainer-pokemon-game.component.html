@@ -1,6 +1,7 @@
 <h2>Caixa: {{ pokemonGame[0].box_number }}</h2>
 <div *ngFor="let pokemonGames of pokemonGame">
     <p>{{ pokemonGames.pokemon_id }}</p>
+    <button (click)="goToPokemonForm()">Delete</button>
 </div>
 <button (click)="decrementBoxNumber()"><--</button>
 <button (click)="incrementBoxNumber()">--></button>

@@ -17,4 +17,5 @@ export const routes: Routes = [{path: '', redirectTo: 'login', pathMatch: 'full'
     {path: 'admin-pokemon', component: AdminPokemonComponent},
     {path: 'admin-create-move', component: AdminCreateMoveComponent},
     {path: 'trainer-pokemon-game/:gameId', component: TrainerPokemonGameComponent},
+    {path: 'trainer-pokemon-form', component: TrainerPokemonGameComponent},
 ];

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Token } from '../../services/token.service';
 import { PokemonGameService } from '../../services/pokemongame.servie';
 import { PokemonGame } from '../../models/PokemonGame';
@@ -17,7 +17,7 @@ export class TrainerPokemonGameComponent implements OnInit {
   pokemonGame: PokemonGame[] = [];
   boxNumber: number = 1;
   errorMessage: string | null = null;
-  constructor(private route: ActivatedRoute, private token: Token, private pokemonGameService: PokemonGameService) {}
+  constructor(private route: ActivatedRoute, private token: Token, private pokemonGameService: PokemonGameService, private router: Router) {}
 
   ngOnInit(): void {
     this.token.TokenPresent(); 
@@ -56,5 +56,8 @@ export class TrainerPokemonGameComponent implements OnInit {
     } else {
       this.errorMessage = 'Minimum box number reached';
     }
+  }
+  goToPokemonForm(){
+    this.router.navigate(['/trainer-pokemon-form']);
   }
 }
