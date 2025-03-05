@@ -5,6 +5,7 @@ import PokemonRoutes from './routes/PokemonRoutes.js';
 import GameRoutes from './routes/GameRoutes.js';
 import MoveRoutes from './routes/MoveRoutes.js';
 import PokemonGame from './routes/PokemonGame.js';
+import PokemonGame from './routes/PokemonGameRoutes.js';
 
 
 const app = express();
