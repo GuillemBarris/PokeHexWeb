@@ -1,1 +1,8 @@
-<p>trainer-pokemon-form works!</p>
+<p>Create / Upate Pokemon</p>
+
+<label>Name</label>
+<select [(ngModel)]="selectedPokemon">
+  <option *ngFor="let pokemon of pokemons" [value]="pokemon.name">
+    {{ pokemon.name }}
+  </option>
+</select>
