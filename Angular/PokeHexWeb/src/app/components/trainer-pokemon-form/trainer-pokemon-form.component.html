@@ -6,3 +6,27 @@
     {{ pokemon.name }}
   </option>
 </select>
+<label>Move 1</label>
+<select [(ngModel)]="selectedMove">
+  <option *ngFor="let move of moves" [value]="move.name">
+    {{ move.name }}
+  </option>
+</select>
+  <label>Move 2</label>
+  <select [(ngModel)]="selectedMove">
+    <option *ngFor="let move of moves" [value]="move.name">
+      {{ move.name }}
+    </option>
+  </select>
+  <label>Move 3</label>
+  <select [(ngModel)]="selectedMove">
+    <option *ngFor="let move of moves" [value]="move.name">
+      {{ move.name }}
+    </option>
+  </select>
+  <label>Move 4</label>
+  <select [(ngModel)]="selectedMove">
+    <option *ngFor="let move of moves" [value]="move.name">
+      {{ move.name }}
+    </option>
+  </select>

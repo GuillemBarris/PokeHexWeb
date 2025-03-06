@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MoveService } from '../../services/move.service';
 
 @Component({
   selector: 'app-trainer-pokemon-form',
@@ -12,12 +13,16 @@ import { FormsModule } from '@angular/forms';
 })
 export class TrainerPokemonFormComponent implements OnInit {
   pokemons: any[] = [];
+  moves: any[] = [];
   selectedPokemon: string = '';
+  selectedMove: string = '';
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, private moveService: MoveService) {}
 
   ngOnInit() {
     this.loadPokemons();
+    this.loadMoves();
+
   }
 
   loadPokemons() {
@@ -26,5 +31,14 @@ export class TrainerPokemonFormComponent implements OnInit {
         this.pokemons = data.pokemons;
       }
     });
+  }
+  loadMoves() {
+    this.moveService.getAllMoves().subscribe(data => {
+     
+        this.moves = data;
+      
+    }
+  );
+    
   }
 }
