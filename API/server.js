@@ -4,8 +4,9 @@ import UserRoutes from './routes/UserRoutes.js';
 import PokemonRoutes from './routes/PokemonRoutes.js';
 import GameRoutes from './routes/GameRoutes.js';
 import MoveRoutes from './routes/MoveRoutes.js';
-import PokemonGame from './routes/PokemonGame.js';
 import PokemonGame from './routes/PokemonGameRoutes.js';
+import PokemonMove from './routes/PokemonMoveRoutes.js';
+
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/v1/pokemons", PokemonRoutes);
 app.use("/api/v1/games", GameRoutes);
 app.use("/api/v1/moves", MoveRoutes);
 app.use("/api/v1/pokemonGame/", PokemonGame);
+app.use("/api/v1/pokemonMove/", PokemonMove);
 app.listen(PORT, IP, () => {
     console.log(`Server is running on http://${IP}:${PORT}`);
 });
