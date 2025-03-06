@@ -12,6 +12,7 @@ import { MoveService } from '../../services/move.service';
   styleUrl: './trainer-pokemon-form.component.css'
 })
 export class TrainerPokemonFormComponent implements OnInit {
+  pokemonGame: any;
   pokemons: any[] = [];
   moves: any[] = [];
   selectedPokemon: string = '';
@@ -20,6 +21,8 @@ export class TrainerPokemonFormComponent implements OnInit {
   constructor(private pokemonService: PokemonService, private moveService: MoveService) {}
 
   ngOnInit() {
+    this.pokemonGame = history.state.pokemonGame;
+    console.log(this.pokemonGame);
     this.loadPokemons();
     this.loadMoves();
 

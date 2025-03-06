@@ -26,6 +26,7 @@ export class TrainerPokemonGameComponent implements OnInit {
       if (this.gameId) {
         this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
           this.pokemonGame = pg;
+          
         } );
       } else {
         console.error('Game ID is null');
@@ -57,7 +58,9 @@ export class TrainerPokemonGameComponent implements OnInit {
       this.errorMessage = 'Minimum box number reached';
     }
   }
-  goToPokemonForm(){
-    this.router.navigate(['/trainer-pokemon-form']);
+  goToPokemonForm(pokemonGame: PokemonGame): void {
+    this.router.navigate(['/trainer-pokemon-form'], {
+      state: { pokemonGame: pokemonGame }
+    });
   }
 }
