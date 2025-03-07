@@ -31,3 +31,21 @@ DB_TRUST_SERVER_CERTIFICATE=true
 npm run
 ```
 
+# Crear Usuari (UserController.js UserRoutes.js)
+
+## Ruta
+```bash
+ POST /api/v1/users/createUser/
+ ```
+
+## Body Request (JSON):
+```json
+{
+  "name": "Ash",
+  "email": "ash@example.com",
+  "type": "trainer",
+  "password": "pikachu123"
+}
+```
+
+
