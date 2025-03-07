@@ -128,11 +128,52 @@ Error del servidor (ex: error de connexió a la base de dades, error en verifica
 ```bash
 GET /api/v1/users/getUserByEmail/ash@example.com/pikachu123
 ```
-## Exemple de Resposta d’Èxit:
+
+# Obtenir Jocs per User ID (GameController.js GameRoutes.js)
+
+Ruta
+bash
+Copy
+GET /api/v1/games/getGameByUserId/:user_id
+Paràmetres de la Ruta:
+user_id: L'ID de l'usuari del qual es volen obtenir els jocs.
+
+## Resposta d’èxit (HTTP 200):
 ```json
-{
-  "message": "User logged in",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "type": "trainer"
-}
+[
+  {
+    "game_id": 1,
+    "user_id": "123",
+    "game_name": "Pokemon Red",
+  },
+  {
+    "game_id": 2,
+    "user_id": "123",
+    "game_name": "Pokemon Blue",
+  }
+]
+```
+
+## Gestio d'Errors
+### 400 Bad Request:
+Falta el camp obligatori user_id a la sol·licitud.
+```json
+{ "message": "Missing required field: user_id" }
+```
+
+### 404 Not Found:
+No s'han trobat jocs per a l'ID d'usuari proporcionat.
+```json
+{ "message": "No games found for this user" }
+```
+
+### 500 Internal Server Error:
+Error del servidor (ex: error de connexió a la base de dades).
+```json
+{ "message": "Internal server error" }
+```
+
+## Exemple de Sol·licitud:
+```bash
+GET /api/v1/games/getGameByUserId/123
 ```
