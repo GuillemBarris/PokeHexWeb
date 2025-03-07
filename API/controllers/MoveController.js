@@ -12,18 +12,24 @@ export const GetAllMoves = async (req, res) => {
 }
 
 export const CreateMove = async (req, res) => {
-    const { name, type, category, power} = req.body;
-    try{
+    const { name, type, category, power } = req.body;
+    try {
+        const powerNumber = parseInt(power, 10);
+        if (isNaN(powerNumber) || powerNumber < 0) {
+            return res.status(400).json({ message: "Power must be a non-negative integer" });
+        }
+
         let pool = await sql.connect(config);
         let result = await pool
             .request()
             .input("name", sql.VarChar, name)
             .input("type", sql.VarChar, type)
             .input("category", sql.VarChar, category)
-            .input("power", sql.Int, power)
+            .input("power", sql.Int, powerNumber)
             .query(
-                "use PokeHexDatabase INSERT INTO Moves (name, type, category, power) VALUES (@name, @type, @category, @power)"
+                "USE PokeHexDatabase; INSERT INTO Moves (name, type, category, power) VALUES (@name, @type, @category, @power)"
             );
+        
         if (result.rowsAffected[0] === 1) {
             return res.status(201).json({ message: "Move created successfully" });
         }
@@ -32,4 +38,4 @@ export const CreateMove = async (req, res) => {
     catch (error) {
         return res.status(500).json({ message: error.message });
     }
-}
+};
