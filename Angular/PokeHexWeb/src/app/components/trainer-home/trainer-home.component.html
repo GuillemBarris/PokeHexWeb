@@ -9,4 +9,4 @@
 </ul>
 <p>Game Name</p>
 <input [(ngModel)]="name" />
-<button type="submit" (click)="createNewGame()">New Game</button>
+<button type="submit" (click)="createNewGame()" [disabled]="isCreatingPokemons">New Game</button>

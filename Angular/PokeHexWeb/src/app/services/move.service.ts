@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { API_URL } from '../app.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoveService {
-  private Url = 'http://172.24.59.209:3000/api/v1/moves';
+  private table = 'moves';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -17,7 +18,7 @@ export class MoveService {
       authorization: `Beare ${token}`,
     });
     return this.http
-      .post<any>(`${this.Url}/createMove`, move, { headers })
+      .post<any>(`${API_URL}/${this.table}/createMove`, move, { headers })
       .pipe(
         catchError((err) => {
           console.error('Error adding move:', err);
@@ -45,7 +46,7 @@ export class MoveService {
         'authorization': `Bearer ${token}`,
     });
 
-    return this.http.get<any>(`${this.Url}/getAllMoves/`, { headers }).pipe(
+    return this.http.get<any>(`${API_URL}/${this.table}/getAllMoves/`, { headers }).pipe(
         catchError((err) => {
             if (err.status === 400) {
                 console.error('Error 400: Bad Request');

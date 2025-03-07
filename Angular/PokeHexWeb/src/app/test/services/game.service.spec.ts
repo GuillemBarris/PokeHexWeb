@@ -32,7 +32,7 @@ describe('DatabaseService', () => {
     });
 
 
-    const req = httpMock.expectOne(`${service['Url']}/GetGameByUserId/${mockEmail}`);
+    const req = httpMock.expectOne(`${service['table']}/GetGameByUserId/${mockEmail}`);
     expect(req.request.method).toBe('GET');
 
     req.flush(mockResponse);

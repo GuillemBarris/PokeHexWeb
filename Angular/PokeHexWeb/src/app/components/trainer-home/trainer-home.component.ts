@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Token } from '../../services/token.service';
 import { GameService } from '../../services/game.service';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, finalize, forkJoin, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IGame } from '../../interfaces/IGame';
 import { Game } from '../../models/Game';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PokemonGameService } from '../../services/pokemongame.servie';
 import { PokemonGame } from '../../models/PokemonGame';
+import { PokemonGameService } from '../../services/pokemongame.service';
 
 @Component({
   selector: 'app-trainer-home',
@@ -22,7 +22,7 @@ export class TrainerHomeComponent {
   games: IGame[] = []; 
   user_id = localStorage.getItem('email');
   name: string = '';
-
+  isCreatingPokemons = false;
   constructor(private token: Token, private gameService: GameService, private pokemonGameService: PokemonGameService, private router: Router) {}
 
   ngOnInit() {
@@ -106,28 +106,44 @@ export class TrainerHomeComponent {
     this.router.navigate(['/trainer-pokemon-game', game.id]);
 }
 
-createPokemonsGame(gameId: string){
+createPokemonsGame(gameId: string) {
   if (!gameId) {
     console.error('The game ID is not defined.');
     return;
-  }else{
-    for (let i = 1; i <= 32; i++) {
-      for (let j = 1; j <= 30; j++) {
-        const newPokemonGame =  new PokemonGame(undefined, undefined, gameId, i, j);
-        this.pokemonGameService.postPokemonGame(newPokemonGame)
-          .pipe(
-            tap((data) => {
-              console.log('Pokemon added:', data);
-            }),
-            catchError((error) => {
-              console.error('Error adding the pokemon:', error);
-              return of(null);
-            })
-          ).subscribe();
-      }
+  }
+
+  // Deshabilitar el botón
+  this.isCreatingPokemons = true;
+
+  const requests = [];
+
+  // Crear todas las solicitudes
+  for (let i = 1; i <= 32; i++) {
+    for (let j = 1; j <= 30; j++) {
+      const newPokemonGame = new PokemonGame(undefined, undefined, gameId, i, j);
+      const request = this.pokemonGameService.postPokemonGame(newPokemonGame).pipe(
+        catchError((error) => {
+          console.error('Error adding the pokemon:', error);
+          return of(null); // Continuar incluso si hay un error
+        })
+      );
+      requests.push(request);
     }
   }
 
+
+  forkJoin(requests)
+    .pipe(
+      finalize(() => {
+
+        this.isCreatingPokemons = false;
+        console.log('All Pokemons have been created.');
+      })
+    )
+    .subscribe((results) => {
+      console.log('All requests completed:', results);
+    });
+}
 }
 
-}
+

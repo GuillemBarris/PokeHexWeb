@@ -36,7 +36,7 @@ describe('DatabaseService', () => {
     service.postUser(newUser).subscribe((response) => {
       expect(response).toEqual(newUser);
     });
-    const req =httpMock.expectOne(`${service['Url']}/createUser/`);
+    const req =httpMock.expectOne(`${service['table']}/createUser/`);
     expect(req.request.method).toBe('POST');
   });
 
@@ -54,7 +54,7 @@ describe('DatabaseService', () => {
       expect(response).toEqual(User);
     });
 
-    const req = httpMock.expectOne(`${service['Url']}/getUserByEmail/${email}/${password}`);
+    const req = httpMock.expectOne(`${service['table']}/getUserByEmail/${email}/${password}`);
     expect(req.request.method).toBe('GET');
     
   });

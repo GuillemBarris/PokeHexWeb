@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Token } from '../../services/token.service';
-import { PokemonGameService } from '../../services/pokemongame.servie';
+
 import { PokemonGame } from '../../models/PokemonGame';
+import { PokemonGameService } from '../../services/pokemongame.service';
 
 @Component({
   selector: 'app-trainer-pokemon-game',
@@ -26,6 +27,7 @@ export class TrainerPokemonGameComponent implements OnInit {
       if (this.gameId) {
         this.pokemonGameService.getPokemonGame(this.gameId, this.boxNumber).subscribe(pg => {
           this.pokemonGame = pg;
+          console.log(this.pokemonGame);
           
         } );
       } else {

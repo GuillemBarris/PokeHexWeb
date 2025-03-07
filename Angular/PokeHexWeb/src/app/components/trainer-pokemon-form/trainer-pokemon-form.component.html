@@ -1,4 +1,4 @@
-<p>Create / Upate Pokemon</p>
+<h3>Create / Update Pokemon</h3>
 
 <label>Name</label>
 <select [(ngModel)]="selectedPokemon">
@@ -6,27 +6,33 @@
     {{ pokemon.name }}
   </option>
 </select>
+
 <label>Move 1</label>
-<select [(ngModel)]="selectedMove">
+<select [(ngModel)]="selectedMove1">
   <option *ngFor="let move of moves" [value]="move.name">
     {{ move.name }}
   </option>
 </select>
-  <label>Move 2</label>
-  <select [(ngModel)]="selectedMove">
-    <option *ngFor="let move of moves" [value]="move.name">
-      {{ move.name }}
-    </option>
-  </select>
-  <label>Move 3</label>
-  <select [(ngModel)]="selectedMove">
-    <option *ngFor="let move of moves" [value]="move.name">
-      {{ move.name }}
-    </option>
-  </select>
-  <label>Move 4</label>
-  <select [(ngModel)]="selectedMove">
-    <option *ngFor="let move of moves" [value]="move.name">
-      {{ move.name }}
-    </option>
-  </select>
+
+<label>Move 2</label>
+<select [(ngModel)]="selectedMove2">
+  <option *ngFor="let move of moves" [value]="move.name">
+    {{ move.name }}
+  </option>
+</select>
+
+<label>Move 3</label>
+<select [(ngModel)]="selectedMove3">
+  <option *ngFor="let move of moves" [value]="move.name">
+    {{ move.name }}
+  </option>
+</select>
+
+<label>Move 4</label>
+<select [(ngModel)]="selectedMove4">
+  <option *ngFor="let move of moves" [value]="move.name">
+    {{ move.name }}
+  </option>
+</select>
+
+<button (click)="updatePokemonGameAndMove()">Update Pokemon Game</button>

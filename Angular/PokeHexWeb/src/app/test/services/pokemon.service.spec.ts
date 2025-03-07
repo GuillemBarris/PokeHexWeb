@@ -38,7 +38,7 @@ describe('DatabaseService', () => {
     service.postPokemon(newPokemon).subscribe((response) => {
       expect(response).toEqual(newPokemon);
     });
-    const req = httpMock.expectOne(`${service['Url']}/createPokemon/`);
+    const req = httpMock.expectOne(`${service['table']}/createPokemon/`);
     expect(req.request.method).toBe('POST');
   });
   it('should get 31 pokemon', () => {
@@ -47,7 +47,7 @@ describe('DatabaseService', () => {
     service.getPokemons(number).subscribe((response) => {
       expect(response).toEqual(mockPokemons);
     });
-    const req = httpMock.expectOne(`${service['Url']}/getPokemons/${number}`);
+    const req = httpMock.expectOne(`${service['table']}/getPokemons/${number}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockPokemons);
   });

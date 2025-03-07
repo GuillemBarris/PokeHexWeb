@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { createPokemonMove, deletePokemonMove, getAllPokemonMoves, getPokemonMoveById, updatePokemonMove } from "../controllers/PokemonMoveController.js";
+import { createPokemonMove, deletePokemonMove, getPokemonMoveById, updatePokemonMove } from "../controllers/PokemonMoveController.js";
 
 const PokemonMove = Router();
-PokemonMove.get('getAllPokemonMoves/', getAllPokemonMoves);
-PokemonMove.get('getPokemonMoveByID/:id', getPokemonMoveById);
-PokemonMove.post('createPokemonMove/', createPokemonMove);
-PokemonMove.put('updatePokemnMove/:id', updatePokemonMove);
-PokemonMove.delete('deletePokemonMove/:id', deletePokemonMove);
+PokemonMove.get('/getPokemonMoveById/:id', getPokemonMoveById);
+PokemonMove.post('/createPokemonMove/', createPokemonMove);
+PokemonMove.put('/updatePokemonMove/:id', updatePokemonMove);
+PokemonMove.delete('/deletePokemonMove/:pokemon_id', deletePokemonMove);
 
 export default PokemonMove;

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, of } from "rxjs";
+import { API_URL } from "../app.config";
 
 @Injectable({
     providedIn: 'root'
@@ -8,12 +9,12 @@ import { catchError, Observable, of } from "rxjs";
 
 export class UserService {
 
-    private Url = 'http://172.24.59.209:3000/api/v1/users'; 
+    private table = 'users';
 
     constructor(private http: HttpClient) { }
 
     postUser(user: any): Observable<any> {
-        return this.http.post<any>(`${this.Url}/createUser/`, user).pipe(
+        return this.http.post<any>(`${API_URL}/${this.table}/createUser/`, user).pipe(
             catchError((err) => {
                 console.error('Error adding user:', err);
                 return of(null)
@@ -22,7 +23,7 @@ export class UserService {
     }
 
     getUserByEmailAndPassword(email: string, password: string): Observable<any> {
-        return this.http.get<any>(`${this.Url}/getUserByEmail/${email}/${password}`).pipe(
+        return this.http.get<any>(`${API_URL}/${this.table}/getUserByEmail/${email}/${password}`).pipe(
             catchError((err) => {
                 console.error('Error getting user:', err);
                 return of(null)

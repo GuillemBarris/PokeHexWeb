@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, of } from "rxjs";
+import { API_URL } from "../app.config";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,7 @@ import { catchError, of } from "rxjs";
 
 export class PokemonService {
 
-    private Url = 'http://172.24.59.209:3000/api/v1/pokemons';
+    private table = 'pokemons';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -19,7 +20,7 @@ export class PokemonService {
 
             'authorization': `Beare ${token}`,
         });
-        return this.http.post<any>(`${this.Url}/createPokemon/`, pokemon, {headers}).pipe(
+        return this.http.post<any>(`${API_URL}/${this.table}/createPokemon/`, pokemon, {headers}).pipe(
             catchError((err) => {
                 console.error('Error adding pokemon:', err);
                 
@@ -52,7 +53,7 @@ export class PokemonService {
             'authorization': `Beare ${token}`,
         });
 
-        return this.http.get<any>(`${this.Url}/getPokemons/${number}`, { headers }).pipe(
+        return this.http.get<any>(`${API_URL}/${this.table}/getPokemons/${number}`, { headers }).pipe(
             catchError((err) => {
                 if (err.status === 400) {
                     console.error('Error 400: Bad Request');
@@ -79,7 +80,7 @@ export class PokemonService {
             'authorization': `Beare ${token}`,
         });
 
-        return this.http.get<any>(`${this.Url}/getAllPokemons`, { headers }).pipe(
+        return this.http.get<any>(`${API_URL}/${this.table}/getAllPokemons/`, { headers }).pipe(
             catchError((err) => {
                 if (err.status === 400) {
                     console.error('Error 400: Bad Request');
