@@ -124,11 +124,11 @@ Error del servidor (ex: error de connexió a la base de dades, error en verifica
 ```json
 { "message": "Internal server error" }
 ```
-# Exemple de Sol·licitud:
+## Exemple de Sol·licitud:
 ```bash
 GET /api/v1/users/getUserByEmail/ash@example.com/pikachu123
 ```
-# Exemple de Resposta d’Èxit:
+## Exemple de Resposta d’Èxit:
 ```json
 {
   "message": "User logged in",
