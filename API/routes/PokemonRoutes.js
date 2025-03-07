@@ -6,6 +6,6 @@ const PokemonRoutes = Router();
 
 PokemonRoutes.post("/createPokemon/", authenticateToken,  CreatePokemon);
 PokemonRoutes.get("/getPokemons/:offset",   authenticateToken, GetPokemon);
-PokemonRoutes.get("/getAllPokemons/",    GetAllPokemon);
+PokemonRoutes.get("/getAllPokemons/", authenticateToken,    GetAllPokemon);
 
 export default PokemonRoutes;
