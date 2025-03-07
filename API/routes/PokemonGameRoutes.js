@@ -3,7 +3,7 @@ import {createPokemonGame, updatePokemonGame, deletePokemonGame, getPokemonGameB
 import { authenticateToken } from "../middleware/middleware.js";
 
 const PokemonGame = Router();
-PokemonGame.get('/getPokemonGameByIdGameAndBoxNumber/:game_id/:box_number/', getPokemonGameByIdGameAndBoxNumber);
+PokemonGame.get('/getPokemonGameByIdGameAndBoxNumber/:game_id/:box_number/', authenticateToken, getPokemonGameByIdGameAndBoxNumber);
 PokemonGame.get('/getPokemonGameByGameId/:game_id', authenticateToken, getPokemonGameByGameId);
 PokemonGame.post('/createPokemonGame', authenticateToken,createPokemonGame);
 PokemonGame.put('/updatePokemonGame/:id', authenticateToken, updatePokemonGame);
