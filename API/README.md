@@ -47,5 +47,35 @@ npm run
   "password": "pikachu123"
 }
 ```
+## Resposta d’èxit (HTTP 201):
+```json
+{
+  "message": "User created successfully"
+}
+```
+## Possibles errors:
 
+### 400 Bad Request:
+
+Falten camps obligatoris a la sol·licitud (ex: name, email, password).
+
+```json
+{ "message": "Missing required fields" }
+```
+
+### 409 Conflict:
+
+L’email ja està registrat en la base de dades.
+
+```json
+{ "message": "Email already exists" }
+```
+
+### 500 Internal Server Error:
+
+Error del servidor (ex: error de connexió a la base de dades, error en xifrar la contrasenya).
+
+```json
+{ "message": "Internal server error" }
+```
 
